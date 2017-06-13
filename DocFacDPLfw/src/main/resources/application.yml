@@ -1,0 +1,11 @@
+# Web properties Spring Boot
+# https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html 
+
+#banner.charset=UTF-8 # Banner file encoding.
+banner:
+    location: classpath:myBanner.txt
+
+spring:
+    mvc:
+        view:
+                suffix: .jsp
