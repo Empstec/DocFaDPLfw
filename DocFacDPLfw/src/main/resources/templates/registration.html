@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  
+<head lang="es">
+    <title>Registro DocFac DPLfw - MITSS UPV</title>
+    <meta charset="utf-8"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="ThemeBucket"/>
+    <link rel="shortcut icon" href="../static/images/favicon.png" th:href="@{/images/favicon.png}"/>
+
+    <!--Core CSS -->
+    <link href="../static/bs3/css/bootstrap.min.css" th:href="@{/bs3/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/css/bootstrap-reset.css" th:href="@{/css/bootstrap-reset.css}" rel="stylesheet" media="screen"/>
+    <link href="../static/font-awesome/css/font-awesome.css" th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen"/>
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen" />
+    <link href="../static/css/style-responsive.css" th:href="@{/css/style-responsive.css}" rel="stylesheet" media="screen"/>
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]>
+    <script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+  <body class="login-body">
+
+    <div class="container">
+
+      <form class="form-signin" action="index.html">
+        <h2 class="form-signin-heading">Regístrate</h2>
+        <div class="login-wrap">
+            <p>Detalles personales</p>
+            <input type="text" class="form-control" placeholder="Nombre" autofocus=""/>
+            <input type="text" class="form-control" placeholder="Apellido/s" autofocus=""/>
+            <input type="text" class="form-control" placeholder="Correo electrónico" autofocus=""/>
+            <input type="text" class="form-control" placeholder="Estado/Pais" autofocus=""/>
+            <input type="text" class="form-control" placeholder="Provincia" autofocus=""/>
+            <input type="text" class="form-control" placeholder="Población" autofocus=""/>
+            <input type="text" class="form-control" placeholder="Dirección" autofocus=""/>
+            <div class="radios">
+                <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
+                    <input name="sample-radio" id="radio-01" value="1" type="radio" checked="" /> Hombre
+                </label>
+                <label class="label_radio col-lg-6 col-sm-6" for="radio-02">
+                    <input name="sample-radio" id="radio-02" value="1" type="radio" /> Mujer
+                </label>
+            </div>
+
+            <p> Detalles de la cuenta</p>
+            <input type="password" class="form-control" placeholder="Contraseña"/>
+            <input type="password" class="form-control" placeholder="Repetir contraseña"/>
+            <label class="checkbox">
+                <input type="checkbox" value="agree this condition"/> Estoy de acuerdo con los términos de uso y políticas de privacidad.
+            </label>
+            <button class="btn btn-lg btn-login btn-block" type="submit">Registrarse</button>
+
+            <div class="registration">
+                Ya registrado.
+                <a class="" href="index">
+                    Acceder
+                </a>
+            </div>
+
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Placed js at the end of the document so the pages load faster -->
+
+    <!--Core js-->
+    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script src="../static/bs3/js/bootstrap.min.js" th:src="@{/bs3/js/bootstrap.min.js}></script>
+
+  </body>
+</html>

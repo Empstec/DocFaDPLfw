@@ -4,8 +4,3 @@
 #banner.charset=UTF-8 # Banner file encoding.
 banner:
     location: classpath:myBanner.txt
-
-spring:
-    mvc:
-        view:
-                suffix: .jsp
