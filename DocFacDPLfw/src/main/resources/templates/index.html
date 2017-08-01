@@ -42,8 +42,8 @@
         <h2 class="form-signin-heading">Acceso</h2>
         <div class="login-wrap">
             <div class="user-login-info">
-                <input type="text" class="form-control" placeholder="Correo electrónico" autofocus=""/>
-                <input type="password" class="form-control" placeholder="Contraseña"/>
+                <input type="text" class="form-control" th:field="*{}" placeholder="Correo electrónico" autofocus=""/>
+                <input type="password" class="form-control" th:field="*{}" placeholder="Contraseña"/>
             </div>
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"/> Recordarme

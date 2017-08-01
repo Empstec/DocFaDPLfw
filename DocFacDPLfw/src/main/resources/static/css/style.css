@@ -77,7 +77,7 @@ a,a:hover,a:focus {
 }
 .form-signin .checkbox {
     font-weight:normal;
-    color:#b6b6b6;
+    color:#505050;
     font-weight:300;
     font-family:'Open Sans',sans-serif;
 }
@@ -111,7 +111,7 @@ a,a:hover,a:focus {
 }
 .form-signin p {
     text-align:left;
-    color:#b6b6b6;
+    color:#909090;
     font-size:16px;
     font-weight:300;
 }
@@ -5751,4 +5751,8 @@ right: -1px;
 
 .tableContent{
     display:none;
+}
+
+.registration-errors{
+    color: #DF0101 !important;
 }

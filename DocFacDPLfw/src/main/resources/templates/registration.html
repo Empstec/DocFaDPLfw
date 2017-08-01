@@ -35,31 +35,41 @@
 
     <div class="container">
 
-      <form class="form-signin" action="index.html">
+      <form action="#" th:action="@{/register}" th:object="${user}" method="post" class="form-signin">
         <h2 class="form-signin-heading">Regístrate</h2>
         <div class="login-wrap">
             <p>Detalles personales</p>
-            <input type="text" class="form-control" placeholder="Nombre" autofocus=""/>
-            <input type="text" class="form-control" placeholder="Apellido/s" autofocus=""/>
-            <input type="text" class="form-control" placeholder="Correo electrónico" autofocus=""/>
-            <input type="text" class="form-control" placeholder="Estado/Pais" autofocus=""/>
-            <input type="text" class="form-control" placeholder="Provincia" autofocus=""/>
-            <input type="text" class="form-control" placeholder="Población" autofocus=""/>
-            <input type="text" class="form-control" placeholder="Dirección" autofocus=""/>
+            <p th:if="${#fields.hasErrors('name')}" th:errors='*{name}' class="registration-errors">Campo obligatorio</p>
+            <input th:field="*{name}" type="text" class="form-control" placeholder="Nombre" autofocus=""/>
+            <p th:if="${#fields.hasErrors('surname')}" th:errors='*{surname}' class="registration-errors">Campo es obligatorio</p>
+            <input th:field="*{surname}" type="text" class="form-control" placeholder="Apellido/s"/>
+            <p th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="registration-errors">Campo es obligatorio</p>
+            <input th:field="*{email}" type="text" class="form-control" placeholder="Correo electrónico"/>
+            <input th:field="*{state}" type="text" class="form-control" placeholder="Estado/Pais"/>
+            <input th:field="*{province}" type="text" class="form-control" placeholder="Provincia"/>
+            <input th:field="*{town}" type="text" class="form-control" placeholder="Población"/>
+            <input th:field="*{address}" type="text" class="form-control" placeholder="Dirección"/>
             <div class="radios">
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
-                    <input name="sample-radio" id="radio-01" value="1" type="radio" checked="" /> Hombre
+                    <input th:field="*{sex}" name="sample-radio" id="radio-01" value="M" type="radio" checked="" /> Hombre
                 </label>
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-02">
-                    <input name="sample-radio" id="radio-02" value="1" type="radio" /> Mujer
+                    <input th:field="*{sex}" name="sample-radio" id="radio-02" value="F" type="radio" /> Mujer
                 </label>
             </div>
 
             <p> Detalles de la cuenta</p>
-            <input type="password" class="form-control" placeholder="Contraseña"/>
-            <input type="password" class="form-control" placeholder="Repetir contraseña"/>
+            <p th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="registration-errors">Campos obligatorios y deben coincidir</p>
+            <input th:field="*{password}" type="password" class="form-control" placeholder="Contraseña"/>
+            <input th:field="*{password}" type="password" class="form-control" placeholder="Repetir contraseña"/>
+            
+            <p> Detalles de empresa</p>
+            <input th:field="*{company}" type="text" class="form-control" placeholder="Compañia"/>
+            <input th:field="*{department}" type="text" class="form-control" placeholder="Departamento"/>
+            <input th:field="*{rol}" type="text" class="form-control" placeholder="Rol"/>
+            
             <label class="checkbox">
-                <input type="checkbox" value="agree this condition"/> Estoy de acuerdo con los términos de uso y políticas de privacidad.
+                <input type="checkbox" value="true"/> Estoy de acuerdo con los términos de uso y políticas de privacidad.
             </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">Registrarse</button>
 
@@ -79,7 +89,7 @@
 
     <!--Core js-->
     <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
-    <script src="../static/bs3/js/bootstrap.min.js" th:src="@{/bs3/js/bootstrap.min.js}></script>
+    <script src="../static/bs3/js/bootstrap.min.js" th:src="@{/bs3/js/bootstrap.min.js}"></script>
 
   </body>
 </html>
