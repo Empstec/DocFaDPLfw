@@ -9,7 +9,12 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  *
  * @author S
  */
-public class DirectRelation extends Relation{
-    private Feature source; // Father
-    private Feature destiny; // Child
+public class RelationModel {
+    
+    public static final String DIRECT = "Direct";
+    public static final String GROUP = "Group";
+    
+    private String type;
+    private int mult_Min;
+    private int mult_Max;
 }

@@ -118,6 +118,7 @@ CREATE TABLE Usuarios
   ) ;
 ALTER TABLE Usuarios ADD CONSTRAINT Usuario_PK PRIMARY KEY ( id_Usuario ) ;
 ALTER TABLE Usuarios MODIFY COLUMN id_Usuario INTEGER NOT NULL AUTO_INCREMENT;
+ALTER TABLE Usuarios ADD UNIQUE (eMail);
 
 
 ALTER TABLE Caracteristicas ADD CONSTRAINT Car_Doc_FK FOREIGN KEY ( id_Documento ) REFERENCES Documentos ( id_Documento ) ON

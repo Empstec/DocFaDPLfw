@@ -13,10 +13,10 @@ import java.util.Map.Entry;
  *
  * @author S
  */
-public class Document {
+public class DocumentModel {
     private String title;
     private String descripion;  
-    private User author;
-    private Map<Integer,Entry<User,Permission>> permissions; // Integer = id_User
-    private Map<Integer,Feature> features; // Integer = id_Feature
+    private UserModel author;
+    private Map<Integer,Entry<UserModel,PermissionModel>> permissions; // Integer = id_User
+    private Map<Integer,FeatureModel> features; // Integer = id_Feature
 }

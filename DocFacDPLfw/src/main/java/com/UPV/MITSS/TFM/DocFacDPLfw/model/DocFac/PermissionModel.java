@@ -10,27 +10,27 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  * @author S
  */
 
-public class Permission {
-    private Document doc;
-    private User user;
+public class PermissionModel {
+    private DocumentModel doc;
+    private UserModel user;
     private boolean read;
     private boolean write;
     
-    public Permission(Document doc, User user){
+    public PermissionModel(DocumentModel doc, UserModel user){
         this.doc = doc;
         this.user = user;
         this.read = false;
         this.write = false;
     }
     
-    public Permission(Document doc, User user, boolean read,boolean write){
+    public PermissionModel(DocumentModel doc, UserModel user, boolean read,boolean write){
         this.doc = doc;
         this.user = user;
         this.read = read;
         this.write = write;
     }
     
-    public Permission(String permissions){
+    public PermissionModel(String permissions){
         permissions = permissions.toUpperCase();
         this.read = permissions.contains("R");
         this.write = permissions.contains("W");

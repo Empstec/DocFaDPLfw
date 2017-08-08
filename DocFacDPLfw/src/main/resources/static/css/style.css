@@ -5756,3 +5756,14 @@ right: -1px;
 .registration-errors{
     color: #DF0101 !important;
 }
+.registration-errors::first-letter{
+    text-transform: capitalize;
+}
+
+.passReg{
+    display: none;
+}
+
+.conditions{
+    display: none;
+}

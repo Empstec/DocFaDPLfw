@@ -6,16 +6,13 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  *
  * @author S
  */
-public class Content {
-    private User author;
-    private String typeProperty; // Get value from Property class
-    private String content;
-    private String type;
-    private Map<Integer,Property> properties; // Integer = id_Property
+public class GroupRelationModel extends RelationModel{
+    private FeatureModel source;
+    private Map<Integer,DirectRelationModel> relations; // Integer = id_Direct_Relacion
+    
 }

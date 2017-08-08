@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content=""/>
     <meta name="author" content="ThemeBucket"/>
-    <link rel="shortcut icon" href="../static/images/favicon.png" th:href="@{/images/favicon.png}"/>
+    <link rel="shortcut icon" href="/static/images/favicon.ico" th:href="@{/images/favicon.ico}"/>
 
     <!--Core CSS -->
     <link href="../static/bs3/css/bootstrap.min.css" th:href="@{/bs3/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
@@ -44,38 +44,40 @@
             <p th:if="${#fields.hasErrors('surname')}" th:errors='*{surname}' class="registration-errors">Campo es obligatorio</p>
             <input th:field="*{surname}" type="text" class="form-control" placeholder="Apellido/s"/>
             <p th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="registration-errors">Campo es obligatorio</p>
-            <input th:field="*{email}" type="text" class="form-control" placeholder="Correo electrónico"/>
+            <input th:field="*{email}" type="email" class="form-control" placeholder="Correo electrónico"/>
             <input th:field="*{state}" type="text" class="form-control" placeholder="Estado/Pais"/>
             <input th:field="*{province}" type="text" class="form-control" placeholder="Provincia"/>
             <input th:field="*{town}" type="text" class="form-control" placeholder="Población"/>
             <input th:field="*{address}" type="text" class="form-control" placeholder="Dirección"/>
+            <p th:if="${#fields.hasErrors('sex')}" th:errors='*{sex}' class="registration-errors">Campo es obligatorio</p>
             <div class="radios">
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
-                    <input th:field="*{sex}" name="sample-radio" id="radio-01" value="M" type="radio" checked="" /> Hombre
+                    <input th:field="*{sex}" name="sample-radio" id="radioM"  value="M" type="radio" checked="checked"/> Hombre
                 </label>
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-02">
-                    <input th:field="*{sex}" name="sample-radio" id="radio-02" value="F" type="radio" /> Mujer
+                    <input th:field="*{sex}" name="sample-radio" id="radioF" value="F" type="radio" /> Mujer
                 </label>
             </div>
 
             <p> Detalles de la cuenta</p>
+            <p class="registration-errors passReg" id="pwdError">No pueden estrar vacias y deben coincidir</p>
+            <input th:field="*{password}" id="pwd1" type="password" class="form-control" placeholder="Contraseña"/>
+            <input th:field="*{password}" id="pwd2" type="password" class="form-control" placeholder="Repetir contraseña"/>
             <p th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="registration-errors">Campos obligatorios y deben coincidir</p>
-            <input th:field="*{password}" type="password" class="form-control" placeholder="Contraseña"/>
-            <input th:field="*{password}" type="password" class="form-control" placeholder="Repetir contraseña"/>
             
             <p> Detalles de empresa</p>
             <input th:field="*{company}" type="text" class="form-control" placeholder="Compañia"/>
             <input th:field="*{department}" type="text" class="form-control" placeholder="Departamento"/>
             <input th:field="*{rol}" type="text" class="form-control" placeholder="Rol"/>
             
-            <label class="checkbox">
+            <label class="checkbox conditions">
                 <input type="checkbox" value="true"/> Estoy de acuerdo con los términos de uso y políticas de privacidad.
             </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Registrarse</button>
+            <input class="btn btn-lg btn-login btn-block" type="submit" value="Registrarse"/>
 
             <div class="registration">
                 Ya registrado.
-                <a class="" href="index">
+                <a href="index">
                     Acceder
                 </a>
             </div>
@@ -88,8 +90,9 @@
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!--Core js-->
-    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
-    <script src="../static/bs3/js/bootstrap.min.js" th:src="@{/bs3/js/bootstrap.min.js}"></script>
+    <script src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="../static/js/validateReg.js" th:src="@{/js/validateReg.js}"></script>
 
   </body>
 </html>

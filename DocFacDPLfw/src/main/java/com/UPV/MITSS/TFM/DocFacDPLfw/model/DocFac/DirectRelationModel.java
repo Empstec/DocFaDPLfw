@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.UPV.MITSS.TFM.DocFacDPLfw.service;
-
-import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.User;
+package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
 /**
  *
  * @author S
  */
-public interface RegistrationService {
-    public abstract boolean registerUser(User user);
+public class DirectRelationModel extends RelationModel{
+    private FeatureModel source; // Father
+    private FeatureModel destiny; // Child
 }

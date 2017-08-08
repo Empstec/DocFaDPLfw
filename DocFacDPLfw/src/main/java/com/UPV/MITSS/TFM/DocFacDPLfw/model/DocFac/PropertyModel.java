@@ -13,7 +13,7 @@ import java.util.HashMap;
  * @author S
  */
 
-public class Property {
+public class PropertyModel {
     /*
     * Diferent type values
     */
@@ -29,7 +29,7 @@ public class Property {
     
     private String name;
     private String type;
-    private Feature feature;
-    private Map<Integer,Content> contens; // Integer = id_Content
+    private FeatureModel feature;
+    private Map<Integer,ContentModel> contens; // Integer = id_Content
     
 }

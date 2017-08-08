@@ -14,7 +14,7 @@ import java.util.Map.Entry;
  * @author S
  */
 
-public class Feature {
+public class FeatureModel {
     
     public static final String MANDATORY = "Mandatory";
     public static final String OPTIONAL = "Optional";
@@ -24,8 +24,8 @@ public class Feature {
     
     private boolean root;
     private String name;
-    private Map<Integer,Property> properties; // Ingeger = id_Property
-    private Map<Integer,Entry<Feature,String>> requirements; // Integer = id_Feature destiny
-    private Map<Integer,Entry<Feature,String>> incompatibilities; // Integer = id_Feature destiny2
-    private Map<String,Relation> relations; // String = id_Relation+TypeRelactio -> "id;type"
+    private Map<Integer,PropertyModel> properties; // Ingeger = id_Property
+    private Map<Integer,Entry<FeatureModel,String>> requirements; // Integer = id_Feature destiny
+    private Map<Integer,Entry<FeatureModel,String>> incompatibilities; // Integer = id_Feature destiny2
+    private Map<String,RelationModel> relations; // String = id_Relation+TypeRelactio -> "id;type"
 }
