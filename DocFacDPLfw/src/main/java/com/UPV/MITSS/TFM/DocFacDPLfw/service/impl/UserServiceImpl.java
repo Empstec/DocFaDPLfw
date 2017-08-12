@@ -6,14 +6,24 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.service.impl;
 
 import com.UPV.MITSS.TFM.DocFacDPLfw.converter.UserConverter;
-import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.UserRole;
+//import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
+import com.UPV.MITSS.TFM.DocFacDPLfw.repository.RoleJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.UserJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,31 +32,37 @@ import org.springframework.stereotype.Service;
  */
 
 @Service("userServiceImpl")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService,UserDetailsService{
 
     @Autowired
     @Qualifier("userJpaRepository")
     private UserJpaRepository userJpaRepository;
     
     @Autowired
+    @Qualifier("roleJpaRepository")
+    private RoleJpaRepository roleJpaRepository;
+    
+    @Autowired
     @Qualifier("userConverter")
-    UserConverter converter;
+    private UserConverter converter;
     
     @Override
     public List<UserModel> listAllUsers() {
-        
-        
-        List<User> userList = userJpaRepository.findAll();
+         
+        List<com.UPV.MITSS.TFM.DocFacDPLfw.entity.User> userList = userJpaRepository.findAll();
         List<UserModel> userModelList = new ArrayList<UserModel>();
-        for(User u : userList ){
-            userModelList.add(converter.entity2model(u));
+        for(com.UPV.MITSS.TFM.DocFacDPLfw.entity.User u : userList ){
+            userModelList.add(converter.convertUserentity2Usermodel(u));
         }
         return userModelList;
     }
 
     @Override
     public UserModel addUser(UserModel user) {
-        return converter.entity2model(userJpaRepository.save(converter.model2entity(user)));
+        com.UPV.MITSS.TFM.DocFacDPLfw.entity.User userEntity = converter.convertUsermodel2Userentity(user);
+        UserModel userReturn = converter.convertUserentity2Usermodel(userJpaRepository.save(userEntity)); 
+        roleJpaRepository.save(new UserRole(userEntity, "ROLE_USER"));
+        return userReturn; 
     }
 
     @Override
@@ -57,7 +73,26 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserModel updateUser(UserModel user) {
-        return converter.entity2model(userJpaRepository.save(converter.model2entity(user)));
+        return converter.convertUserentity2Usermodel(userJpaRepository.save(converter.convertUsermodel2Userentity(user)));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        com.UPV.MITSS.TFM.DocFacDPLfw.entity.User user = userJpaRepository.findByEmail(email);
+        
+        return buildUserEntity(user,buildAuthorities(user.getUserRoles()));
     }
     
+    private User buildUserEntity(com.UPV.MITSS.TFM.DocFacDPLfw.entity.User user, List<GrantedAuthority> authorities){
+        return new User(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
+    }
+    
+    private List<GrantedAuthority> buildAuthorities(Set<UserRole> userRoles){
+        Set<GrantedAuthority> auths = new HashSet<GrantedAuthority>();
+        
+        for(UserRole userRole : userRoles){
+            auths.add(new SimpleGrantedAuthority(userRole.getRole()));
+        }
+        return new ArrayList<GrantedAuthority>(auths);
+    }
 }

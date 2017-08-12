@@ -33,7 +33,7 @@ public class UserModel {
     private String password;
     private String company;
     private String department;
-    private String rol;  
+    private String role;  
     @Pattern(regexp="^[M|F]{1}$")
     private String sex;
     private String state;
@@ -46,14 +46,14 @@ public class UserModel {
 
     public UserModel(){}
     
-    public UserModel(String name, String surname, String email, String password, String company, String department, String rol, String sex, String state, String province, String town, String address) {
+    public UserModel(String name, String surname, String email, String password, String company, String department, String role, String sex, String state, String province, String town, String address) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.company = company;
         this.department = department;
-        this.rol = rol;
+        this.role = role;
         this.sex = sex;
         this.state = state;
         this.province = province;
@@ -85,8 +85,8 @@ public class UserModel {
         return department;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
     public String getSex() {
@@ -134,7 +134,6 @@ public class UserModel {
     }
 
     public void setPassword(String password) {
-        System.out.print(password+"<-------");
         this.password = password;
     }
 
@@ -146,8 +145,8 @@ public class UserModel {
         this.department = department;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setSex(String sex) {

@@ -17,13 +17,13 @@ import org.springframework.stereotype.Component;
 public class UserConverter {
     
     // Entity to Model (M2E)
-    public UserModel entity2model(User user){
+    public UserModel convertUserentity2Usermodel(User user){
         UserModel userModel = new UserModel();
         userModel.setName(user.getName());
         userModel.setSurname(user.getSurname());
         userModel.setEmail(user.getEmail());
         userModel.setPassword(user.getPassword());
-        userModel.setRol(user.getRol());
+        userModel.setRole(user.getRole());
         userModel.setCompany(user.getCompany());
         userModel.setDepartment(user.getDepartment());
         userModel.setState(user.getState());
@@ -35,13 +35,13 @@ public class UserConverter {
     }
     
     // Model to Entity (E2M)
-    public User model2entity(UserModel userModel){
+    public User convertUsermodel2Userentity(UserModel userModel){
         User user = new User();
         user.setName(userModel.getName());
         user.setSurname(userModel.getSurname());
         user.setEmail(userModel.getEmail());
         user.setPassword(userModel.getPassword());
-        user.setRol(userModel.getRol());
+        user.setRole(userModel.getRole());
         user.setCompany(userModel.getCompany());
         user.setDepartment(userModel.getDepartment());
         user.setState(userModel.getState());

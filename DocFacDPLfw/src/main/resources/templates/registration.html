@@ -35,21 +35,23 @@
 
     <div class="container">
 
-      <form action="#" th:action="@{/register}" th:object="${user}" method="post" class="form-signin">
+      <form action="#" th:action="@{/register}" th:object="${user}" method="POST" class="form-signin">
         <h2 class="form-signin-heading">Regístrate</h2>
         <div class="login-wrap">
             <p>Detalles personales</p>
-            <p th:if="${#fields.hasErrors('name')}" th:errors='*{name}' class="registration-errors">Campo obligatorio</p>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.toekn}" />
+            <div th:if="${#fields.hasErrors('name')}" th:errors='*{name}' class="alert alert-danger registration-errors" role="alert">Campo obligatorio</div>
             <input th:field="*{name}" type="text" class="form-control" placeholder="Nombre" autofocus=""/>
-            <p th:if="${#fields.hasErrors('surname')}" th:errors='*{surname}' class="registration-errors">Campo es obligatorio</p>
+            <div th:if="${#fields.hasErrors('surname')}" th:errors='*{surname}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
             <input th:field="*{surname}" type="text" class="form-control" placeholder="Apellido/s"/>
-            <p th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="registration-errors">Campo es obligatorio</p>
+            <div th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
+            <div th:if="${repited != null}" class="alert alert-danger registration-errors" role="alert">Correo electrónico ya usado.</div>
             <input th:field="*{email}" type="email" class="form-control" placeholder="Correo electrónico"/>
             <input th:field="*{state}" type="text" class="form-control" placeholder="Estado/Pais"/>
             <input th:field="*{province}" type="text" class="form-control" placeholder="Provincia"/>
             <input th:field="*{town}" type="text" class="form-control" placeholder="Población"/>
             <input th:field="*{address}" type="text" class="form-control" placeholder="Dirección"/>
-            <p th:if="${#fields.hasErrors('sex')}" th:errors='*{sex}' class="registration-errors">Campo es obligatorio</p>
+            <div th:if="${#fields.hasErrors('sex')}" th:errors='*{sex}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
             <div class="radios">
                 <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
                     <input th:field="*{sex}" name="sample-radio" id="radioM"  value="M" type="radio" checked="checked"/> Hombre
@@ -60,15 +62,15 @@
             </div>
 
             <p> Detalles de la cuenta</p>
-            <p class="registration-errors passReg" id="pwdError">No pueden estrar vacias y deben coincidir</p>
+            <div class="alert alert-danger passReg registration-errors" role="alert" id="pwdError">No pueden estrar vacias y deben coincidir</div>
             <input th:field="*{password}" id="pwd1" type="password" class="form-control" placeholder="Contraseña"/>
             <input th:field="*{password}" id="pwd2" type="password" class="form-control" placeholder="Repetir contraseña"/>
-            <p th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="registration-errors">Campos obligatorios y deben coincidir</p>
+            <div th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="alert alert-danger registration-errors" role="alert">Campos obligatorios y deben coincidir</div>
             
             <p> Detalles de empresa</p>
             <input th:field="*{company}" type="text" class="form-control" placeholder="Compañia"/>
             <input th:field="*{department}" type="text" class="form-control" placeholder="Departamento"/>
-            <input th:field="*{rol}" type="text" class="form-control" placeholder="Rol"/>
+            <input th:field="*{role}" type="text" class="form-control" placeholder="Rol"/>
             
             <label class="checkbox conditions">
                 <input type="checkbox" value="true"/> Estoy de acuerdo con los términos de uso y políticas de privacidad.
@@ -77,7 +79,7 @@
 
             <div class="registration">
                 Ya registrado.
-                <a href="index">
+                <a href="#" th:href="@{/}">
                     Acceder
                 </a>
             </div>

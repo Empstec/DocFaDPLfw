@@ -38,25 +38,27 @@
 
     <div class="container">
 
-      <form class="form-signin" action="index.html">
+      <form class="form-signin" th:action="@{/login}" method="POST">
         <h2 class="form-signin-heading">Acceso</h2>
         <div class="login-wrap">
             <div class="user-login-info">
-                <input type="text" class="form-control" th:field="*{}" placeholder="Correo electrónico" autofocus=""/>
-                <input type="password" class="form-control" th:field="*{}" placeholder="Contraseña"/>
+                <input type="hidden" name="$(_csrf.parameterName)" value="${_csrf.token}"/>
+                <div th:if="${error != null}" class="alert alert-danger registration-errors" role="alert">Usuario y/o contraseña incorrecto.</div>
+                <div th:if="${logout != null}" class="alert alert-info registration-errors" role="alert">Has salido de la aplicación.</div>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico" autofocus=""/>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" />
             </div>
             <label class="checkbox">
-                <input type="checkbox" value="remember-me"/> Recordarme
-                <span class="pull-right">
+                <input type="checkbox" name="remember-me" id="remember-me"/> Recordarme
+                <!--<span class="pull-right">
                     <a data-toggle="modal" href="#myModal"> ¿Olvidaste tu contraseña?</a>
-
-                </span>
+                </span>-->
             </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Acceder</button>
+            <input class="btn btn-lg btn-login btn-block" type="submit" value="Acceder"/>
 
             <div class="registration">
                 ¿Todavía no tienes cuenta?
-                <a class="" href="registration">
+                <a href="#" th:href="@{/registration}">
                     Crear cuenta
                 </a>
             </div>
@@ -64,12 +66,12 @@
         </div>
 
           <!-- Modal -->
-          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+          <!--<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
               <div class="modal-dialog">
                   <div class="modal-content">
                       <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Forgot Password ?</h4>
+                          <h4 class="modal-title">Olvidaste la contraseña?</h4>
                       </div>
                       <div class="modal-body">
                           <p>Enter your e-mail address below to reset your password.</p>
@@ -82,7 +84,7 @@
                       </div>
                   </div>
               </div>
-          </div>
+          </div>-->
           <!-- modal -->
 
       </form>
@@ -94,7 +96,7 @@
     <!-- Placed js at the end of the document so the pages load faster -->
 
     <!--Core js-->
-    <script src="../static/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+    <script src="../static/js/jquery.js" th:src="@{/js/jquery-3.1.1.js}"></script>
     <script src="../static/bs3/js/bootstrap.min.js" th:src="@{/bs3/js/bootstrap.min.js}"></script>
 
   </body>

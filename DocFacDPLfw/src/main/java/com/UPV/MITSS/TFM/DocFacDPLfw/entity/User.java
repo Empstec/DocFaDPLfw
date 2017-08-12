@@ -5,12 +5,15 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -21,7 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name="id_Usuario")
+    @Column(name="id_Usuario",nullable=false,unique=true)
     private int id_usuario;
     
     @Column(name="nombre")
@@ -30,10 +33,10 @@ public class User {
     @Column(name="apellidos")
     private String surname;
     
-    @Column(name="email")
+    @Column(name="email",nullable=false,unique=true)
     private String email;
     
-    @Column(name="pass")
+    @Column(name="pass",nullable=false)
     private String password;
     
     @Column(name="empresa")
@@ -43,7 +46,7 @@ public class User {
     private String department;
     
     @Column(name="rol")
-    private String rol;
+    private String role;
     
     @Column(name="pais")
     private String state;
@@ -60,22 +63,42 @@ public class User {
     @Column(name="sexo")
     private String sex;
 
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
+    Set<UserRole> userRoles = new HashSet<UserRole>();
+    
     public User(){}
 
-    public User(int id_usuario, String name, String surname, String email, String password, String company, String department, String rol, String state,String province, String town, String address, String sex) {
-        this.id_usuario = id_usuario;
+    public User(/*int id_usuario,*/ String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex) {
+        //this.id_usuario = id_usuario;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.company = company;
         this.department = department;
-        this.rol = rol;
+        this.role = role;
         this.state = state;
         this.province = province;
         this.town = town;
         this.address = address;
         this.sex = sex;
+    }
+    
+    public User(/*int id_usuario,*/ String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles) {
+        //this.id_usuario = id_usuario;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.company = company;
+        this.department = department;
+        this.role = role;
+        this.state = state;
+        this.province = province;
+        this.town = town;
+        this.address = address;
+        this.sex = sex;
+        this.userRoles = userRoles;
     }
 
     public int getId_usuario() {
@@ -134,12 +157,12 @@ public class User {
         this.department = department;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getState() {
@@ -181,5 +204,14 @@ public class User {
     public void setSex(String sex) {
         this.sex = sex;
     }
+    
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+    
     
 }

@@ -5753,9 +5753,10 @@ right: -1px;
     display:none;
 }
 
-.registration-errors{
+/*.registration-errors{
     color: #DF0101 !important;
-}
+}*/
+
 .registration-errors::first-letter{
     text-transform: capitalize;
 }

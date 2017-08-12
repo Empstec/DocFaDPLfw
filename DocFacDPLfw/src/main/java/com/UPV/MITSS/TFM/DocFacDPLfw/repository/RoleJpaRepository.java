@@ -5,7 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.repository;
 
-import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.UserRole;
 import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -14,8 +14,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author S
  */
-@Repository("userJpaRepository")
-public interface UserJpaRepository extends JpaRepository<User,Serializable> {
+@Repository("roleJpaRepository")
+public interface RoleJpaRepository extends JpaRepository<UserRole,Serializable> {
     
-    public abstract User findByEmail(String email);
-    }
+}
