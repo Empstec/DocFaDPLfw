@@ -45,7 +45,6 @@
             <div th:if="${#fields.hasErrors('surname')}" th:errors='*{surname}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
             <input th:field="*{surname}" type="text" class="form-control" placeholder="Apellido/s"/>
             <div th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
-            <div th:if="${repited != null}" class="alert alert-danger registration-errors" role="alert">Correo electrónico ya usado.</div>
             <input th:field="*{email}" type="email" class="form-control" placeholder="Correo electrónico"/>
             <input th:field="*{state}" type="text" class="form-control" placeholder="Estado/Pais"/>
             <input th:field="*{province}" type="text" class="form-control" placeholder="Provincia"/>

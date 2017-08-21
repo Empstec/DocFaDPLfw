@@ -5,17 +5,20 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
+import static com.UPV.MITSS.TFM.DocFacDPLfw.controller.appController.HOME_VEIW;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +34,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class indexController {
     
     public static final String LOGIN_VEIW = "index";
-    public static final String HOME_VEIW = "home";
     public static final String REG_VEIW = "registration";
     public static final String REG_OK_VEIW = "registering";
     
@@ -40,28 +42,38 @@ public class indexController {
     private UserService userService;
     
     @GetMapping({"/","/index"})
-    public ModelAndView index(@RequestParam(name="error",required=false) String error){
-        ModelAndView mav = new ModelAndView(LOGIN_VEIW);
-        // Revisar sesion/cookkies per a auto loggin
+    public ModelAndView index(@RequestParam(name="error",required=false) String error,
+            @CookieValue(value="rememberme",required=false) String cookie){
+        
+        ModelAndView mav;
+        if(cookie != null)
+            if(userService.existUser(cookie))
+                mav = new ModelAndView(HOME_VEIW);
+            else
+                mav = new ModelAndView(LOGIN_VEIW);
+        else
+            mav = new ModelAndView(LOGIN_VEIW);
+        
         mav.addObject("error", error);
-        mav.addObject("user", new UserModel());
+        
         return mav;
     }    
     
-    //@PreAuthorize("hasSole('ROLE_USER')") // Page 403
-    @GetMapping("/home")
-    public ModelAndView loginValidate(){
-        ModelAndView mav = new ModelAndView(HOME_VEIW);
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Usuario Actual
-        // If check rememver poner en sesion
-        return mav;
-    }
-    
-    
     @GetMapping("/registration")
-    public ModelAndView registration(){
-        ModelAndView mav = new ModelAndView(REG_VEIW);
-        mav.addObject("user", new UserModel());
+    public ModelAndView registration(@CookieValue(value="rememberme",required=false) String cookie){
+        ModelAndView mav;
+        if(cookie != null){
+            if(userService.existUser(cookie))
+                mav = new ModelAndView(HOME_VEIW);
+            else{
+                mav = new ModelAndView(REG_VEIW);
+                mav.addObject("user", new UserModel());
+            }
+        }else{
+            mav = new ModelAndView(REG_VEIW);
+            mav.addObject("user", new UserModel());
+        }
+        
         return mav;
     }
     
@@ -70,12 +82,16 @@ public class indexController {
         ModelAndView mav = new ModelAndView();
         if(bindingResult.hasErrors()){
             mav.setViewName(REG_VEIW);
-            mav.addObject("repited","repited");
         }else{
-            BCryptPasswordEncoder pwd = new BCryptPasswordEncoder();
-            mav.setViewName(REG_OK_VEIW);
-            user.setPassword(pwd.encode(user.getPassword()));
-            userService.addUser(user);
+            try{
+                BCryptPasswordEncoder pwd = new BCryptPasswordEncoder();
+                mav.setViewName(REG_OK_VEIW);
+                user.setPassword(pwd.encode(user.getPassword()));
+                userService.addUser(user);
+            }catch(DataIntegrityViolationException e){
+                mav.setViewName(REG_VEIW);
+                bindingResult.rejectValue("email","error.user","Correo electrónico ya registrado");
+            }   
         }
         return mav;
     }

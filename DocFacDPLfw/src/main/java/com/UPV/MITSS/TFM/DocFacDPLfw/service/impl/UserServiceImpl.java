@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.service.impl;
 
+import com.UPV.MITSS.TFM.DocFacDPLfw.constants.UserRoles;
 import com.UPV.MITSS.TFM.DocFacDPLfw.converter.UserConverter;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.UserRole;
 //import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService,UserDetailsService{
     @Qualifier("userConverter")
     private UserConverter converter;
     
+    
     @Override
     public List<UserModel> listAllUsers() {
          
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService,UserDetailsService{
     public UserModel addUser(UserModel user) {
         com.UPV.MITSS.TFM.DocFacDPLfw.entity.User userEntity = converter.convertUsermodel2Userentity(user);
         UserModel userReturn = converter.convertUserentity2Usermodel(userJpaRepository.save(userEntity)); 
-        roleJpaRepository.save(new UserRole(userEntity, "ROLE_USER"));
+        roleJpaRepository.save(new UserRole(userEntity, UserRoles.ROLE_USER));
         return userReturn; 
     }
 
@@ -76,10 +78,10 @@ public class UserServiceImpl implements UserService,UserDetailsService{
         return converter.convertUserentity2Usermodel(userJpaRepository.save(converter.convertUsermodel2Userentity(user)));
     }
 
+   
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        com.UPV.MITSS.TFM.DocFacDPLfw.entity.User user = userJpaRepository.findByEmail(email);
-        
+        com.UPV.MITSS.TFM.DocFacDPLfw.entity.User user = userJpaRepository.findOneByEmail(email);
         return buildUserEntity(user,buildAuthorities(user.getUserRoles()));
     }
     
@@ -94,5 +96,10 @@ public class UserServiceImpl implements UserService,UserDetailsService{
             auths.add(new SimpleGrantedAuthority(userRole.getRole()));
         }
         return new ArrayList<GrantedAuthority>(auths);
+    }
+
+    @Override
+    public boolean existUser(String email) {
+        return userJpaRepository.findOneByEmail(email)!= null;
     }
 }

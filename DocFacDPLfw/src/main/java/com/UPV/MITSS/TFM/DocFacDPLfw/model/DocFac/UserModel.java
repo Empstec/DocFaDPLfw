@@ -40,10 +40,11 @@ public class UserModel {
     private String province;
     private String town;
     private String address;
+    private String remember;
     private Map<Integer,DocumentModel> documents; // Integer = id_Document
     private Map<Integer,ContentModel> contents; // Integer = id_Content
     private Map<Integer,Entry<DocumentModel,PermissionModel>> permissions; // Integer = id_Document
-
+    
     public UserModel(){}
     
     public UserModel(String name, String surname, String email, String password, String company, String department, String role, String sex, String state, String province, String town, String address) {
@@ -167,6 +168,14 @@ public class UserModel {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    
+    public String getRemember(){
+        return remember;
+    }
+    
+    public void setRemember(String remember){
+        this.remember = remember;
     }
     
 }
