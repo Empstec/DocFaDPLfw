@@ -305,7 +305,7 @@ ul.sidebar-menu li a.active i {
 }
 /*main content*/
 #main-content {
-    margin-left:360px;
+    /*margin-left:360px;*/ /* Enable fot create */
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
@@ -317,7 +317,7 @@ ul.sidebar-menu li a.active i {
 }
 .header {
     padding: 10px 25px;
-    height: 50px;
+    height: 70px;
     left:0;
     right:0;
     z-index:1002;
@@ -530,7 +530,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     font-size:11px;
 }
 .top-nav {
-    margin-top:20px;
+    margin-top:10px;
 }
 .top-nav img {
     border-radius:50%;
@@ -538,7 +538,7 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
     width:33px;
 }
 .top-nav ul.top-menu>li .dropdown-menu.logout {
-    width:170px !important;
+    width:200px !important;
 }
 .top-nav li.dropdown .dropdown-menu {
     float:right;
@@ -580,7 +580,14 @@ ul.top-menu>li>a:hover,ul.top-menu>li>a:focus {
 .top-nav .username {
     font-size:13px;
     color:#555555;
+    margin-left: 15px;
 }
+
+.top-nav .surname {
+    font-size:13px;
+    color:#555555;
+}
+
 .top-nav ul.top-menu>li>a {
     border-radius:100px;
     -webkit-border-radius:100px;

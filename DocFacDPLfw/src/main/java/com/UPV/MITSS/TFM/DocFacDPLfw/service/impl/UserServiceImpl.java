@@ -102,4 +102,9 @@ public class UserServiceImpl implements UserService,UserDetailsService{
     public boolean existUser(String email) {
         return userJpaRepository.findOneByEmail(email)!= null;
     }
+
+    @Override
+    public UserModel getUser(String email) {
+        return converter.convertUserentity2Usermodel(userJpaRepository.findOneByEmail(email));
+    }
 }
