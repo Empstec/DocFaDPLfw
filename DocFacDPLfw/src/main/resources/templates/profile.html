@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html 
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    
+<head lang="es">
+    <title>DocFac DPLfw - MITSS UPV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content="Salvador Puertes Aleixandre"/>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" th:href="@{/images/favicon.ico}"/>
+
+    
+    <!--Core CSS -->
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
+    <link href="/css/bootstrap-reset.css" th:href="@{/css/bootstrap-reset.css}" rel="stylesheet" media="screen"/>
+    <link href="/font-awesome/css/font-awesome.css" th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen"/>
+    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
+    <link href="/css/treeview.css" th:href="@{/css/treeview.css}" rel="stylesheet" media="screen"/>
+    
+    <!-- Custom styles for template -->
+    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
+    <link href="/css/style-responsive.css" th:href="@{/css/style-responsive.css}" rel="stylesheet" media="screen"/>
+
+</head>
+
+<body>
+
+<section id="container" >
+<!--header start-->
+<header class="header fixed-top clearfix">
+<!--<div class="nav notify-row" id="top_menu">
+
+</div>-->
+<div class="top-nav clearfix">
+    <!--search start-->
+    <ul class="nav pull-left top-menu">
+        <li>
+            <input type="text" class="form-control search" placeholder=" Buscar"/>
+            <button class="btn btn-info pull-right">Buscar</button>
+        </li>
+    </ul>
+    <ul class="nav pull-right top-menu">
+        <li class="dropdown">
+            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                <span class="username" th:text="${user.name}"></span>
+                <span class="surname" th:text="${user.surname}"></span>
+                <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu extended logout">
+                <li><a href="#" th:href="@{''}"><i class=" fa fa-suitcase"></i>Configuración personal</a></li>
+                <li><a href="#" th:href="@{/logout}"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+</header>
+<!--header end-->
+
+    <!--main content start-->
+    <section id="main-content">
+        <section class="wrapper">
+        <!-- page start-->
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <form action="#" th:action="@{saveProfile}" th:object="${user}" method="POST">
+                            <div class="row">    
+                                <div class="col-md-offset-1 col-md-3 col-sm-12 col-xs-12">
+                                    <p class="form-title">Detalles personales</p>
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.toekn}" />
+                                    <label>Nobre</label>
+                                    <div th:if="${#fields.hasErrors('name')}" th:errors='*{name}' class="alert alert-danger registration-errors" role="alert">Campo obligatorio</div>
+                                    <input th:field="*{name}" type="text" class="form-control" placeholder="Nombre" autofocus=""/>
+                                    <label>Apellidos</label>
+                                    <div th:if="${#fields.hasErrors('surname')}" th:errors='*{surname}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
+                                    <input th:field="*{surname}" type="text" class="form-control" placeholder="Apellido/s"/>
+                                    <label>Pais</label>
+                                    <input th:field="*{state}" type="text" class="form-control" placeholder="Estado/Pais"/>
+                                    <label>Provincia</label>
+                                    <input th:field="*{province}" type="text" class="form-control" placeholder="Provincia"/>
+                                    <label>Población</label>
+                                    <input th:field="*{town}" type="text" class="form-control" placeholder="Población"/>
+                                    <label>Dirección</label>
+                                    <input th:field="*{address}" type="text" class="form-control" placeholder="Dirección"/>
+                                    <div th:if="${#fields.hasErrors('sex')}" th:errors='*{sex}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
+                                    <label>Sexo</label>
+                                    <div class="radios">
+                                        <label class="label_radio col-lg-6 col-sm-6" for="radio-01">
+                                            <input th:field="*{sex}" name="sample-radio" id="radioM"  value="M" type="radio" checked="checked"/> Hombre
+                                        </label>
+                                        <label class="label_radio col-lg-6 col-sm-6" for="radio-02">
+                                            <input th:field="*{sex}" name="sample-radio" id="radioF" value="F" type="radio" /> Mujer
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <p class="form-title">Detalles de la cuenta</p>
+                                    <label>Correo electrónico</label>
+                                    <div th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
+                                    <input th:field="*{email}" type="email" class="form-control" placeholder="Correo electrónico"/>
+                                    <div class="alert alert-danger passReg registration-errors" role="alert" id="pwdError">No pueden estrar vacias y deben coincidir</div>
+                                    <label>Contraseña</label>
+                                    <input th:field="*{password}" id="pwd1" type="password" class="form-control" placeholder="Contraseña"/>
+                                    <label>Repite la contraseña</label>
+                                    <input th:field="*{password}" id="pwd2" type="password" class="form-control" placeholder="Repetir contraseña"/>
+                                    <div th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="alert alert-danger registration-errors" role="alert">Campos obligatorios y deben coincidir</div>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <p class="form-title">Detalles de empresa</p>
+                                    <label>Nombre de la empresa</label>
+                                    <input th:field="*{company}" type="text" class="form-control" placeholder="Compañia"/>
+                                    <label>Departamentos</label>
+                                    <input th:field="*{department}" type="text" class="form-control" placeholder="Departamento"/>
+                                    <label>Rol</label>
+                                    <input th:field="*{role}" type="text" class="form-control" placeholder="Rol"/>
+                                </div>
+                            </div>
+                            <div class="row col-md-2 col-md-offset-1 col-sm-12 col-xs-12 btn-profile-form">
+                                <input type="submit" class="btn btn-info" value="Guardar cambios"/>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <!-- page end-->
+        </section>
+    </section>
+    <!--main content end-->
+</section>
+
+<!--Core js-->
+<script src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
+<script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
+<script class="include" type="text/javascript" src="../static/js/jquery.dcjqaccordion.2.7.js" th:src="@{/js/jquery.dcjqaccordion.2.7.js}"></script>
+<script src="../static/js/jquery.scrollTo.min.js" th:src="@{/js/jquery.scrollTo.min.js}"></script>
+<script src="../static/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js" th:src="@{/js/jQuery-slimScroll-1.3.0/jquery.slimscroll.js}"></script>
+<script src="../static/js/jquery.nicescroll.js" th:src="@{/js/jquery.nicescroll.js}"></script>
+
+<script src="../static/js/base.js" th:src="@{/js/base.js}"></script>
+<script src="../static/js/functions.js" th:src="@{/js/functions.js}"></script>
+
+</body> 
+</html>

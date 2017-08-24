@@ -34,14 +34,6 @@ public class RememberMeServicesImpl implements RememberMeServices,Authentication
     @Qualifier("userServiceImpl")
     private UserServiceImpl userService;
     
-    @Autowired
-    @Qualifier("userJpaRepository")
-    private UserJpaRepository userRepo;
-    
-    @Autowired
-    @Qualifier("roleJpaRepository")
-    private RoleJpaRepository userRole;
-    
     @Override
     public Authentication autoLogin(HttpServletRequest hsr, HttpServletResponse hsr1) {
         for(Cookie cookie : hsr.getCookies())

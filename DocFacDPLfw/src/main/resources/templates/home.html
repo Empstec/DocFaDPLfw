@@ -38,7 +38,7 @@
     <!--search start-->
     <ul class="nav pull-left top-menu">
         <li>
-            <input type="text" class="form-control search" placeholder=" Search"/>
+            <input type="text" class="form-control search" placeholder=" Buscar"/>
             <button class="btn btn-info pull-right">Buscar</button>
         </li>
     </ul>
@@ -50,7 +50,7 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="#"><i class=" fa fa-suitcase"></i>Configuración personal</a></li>
+                <li><a href="#" th:href="@{/home/profile}"><i class=" fa fa-suitcase"></i>Configuración personal</a></li>
                 <li><a href="#" th:href="@{/logout}"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
             </ul>
         </li>
@@ -65,7 +65,9 @@
         <!-- page start-->
         <div class="row">
             <div class="col-sm-12">
-                <!-- Recorer tots els docs i al final add  -->
+                <section class="panel">
+                    <div class="panel-body">PROBE</div>
+                </section>
             </div>
         </div>
         <!-- page end-->

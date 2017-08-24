@@ -7,14 +7,18 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,6 +33,7 @@ public class appController {
     
     public static final String HOME_VEIW = "home";
     public static final String CREATE_VEIW = "create";
+    public static final String PROFILE_VEIW = "profile";
     
     @Autowired
     @Qualifier("userServiceImpl")
@@ -51,8 +56,21 @@ public class appController {
     public ModelAndView createDocument(){
         ModelAndView mav = new ModelAndView(CREATE_VEIW);
         
-        User currentUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Usuario Actual
-        
         return mav;
+    }
+    
+    @GetMapping("/profile")
+    public ModelAndView profile(){
+        ModelAndView mav = new ModelAndView(PROFILE_VEIW);
+        mav.addObject("user",userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
+        return mav;
+    }
+    
+    @PostMapping("/saveProfile")
+    public ModelAndView saveProfileChanges(@Valid @ModelAttribute("user") UserModel user, BindingResult bindingResult){
+        if(!bindingResult.hasErrors()){
+            userService.updateUser(user);
+        }
+        return new ModelAndView(PROFILE_VEIW);
     }
 }

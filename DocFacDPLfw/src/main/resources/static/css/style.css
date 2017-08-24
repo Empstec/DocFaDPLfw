@@ -336,10 +336,9 @@ ul.sidebar-menu li a.active i {
 }
 .wrapper {
     display:inline-block;
-    margin-top:45px;
+    margin-top:70px;
     padding:15px;
     width:100%;
-
 }
 .brand {
     background:#1fb5ad;
@@ -5774,4 +5773,13 @@ right: -1px;
 
 .conditions{
     display: none;
+}
+
+.form-title{
+    font-weight: bold;
+    font-size: 125%;
+}
+
+.btn-profile-form{
+    margin-top: 20px;
 }
