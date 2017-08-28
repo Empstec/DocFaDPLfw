@@ -7,6 +7,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author S
+ * @author Salvador Puertes Aleixandre
  */
 @Controller
 @PreAuthorize("hasRole('ROLE_USER')")
@@ -36,6 +37,9 @@ public class appController {
     public static final String PROFILE_VEIW = "profile";
     
     @Autowired
+    private HttpSession httpSession;
+    
+    @Autowired
     @Qualifier("userServiceImpl")
     private UserService userService;
     
@@ -43,11 +47,18 @@ public class appController {
     public ModelAndView loginValidate(@CookieValue(value="rememberme", required=false) String cookie){
         ModelAndView mav = new ModelAndView(HOME_VEIW);
         
+        com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel cModelUser;
+        
         if(cookie == null){
             User currentUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Usuario Actual
-            mav.addObject("user",userService.getUser(currentUser.getUsername()));
-        }else
-            mav.addObject("user",userService.getUser(cookie));
+            cModelUser = userService.getUser(currentUser.getUsername());
+        }else{
+            cModelUser = userService.getUser(cookie);
+        }
+        
+        httpSession.setAttribute("currentUser", cModelUser);
+        
+        mav.addObject("user",cModelUser);
         
         return mav;
     }
@@ -61,6 +72,7 @@ public class appController {
     
     @GetMapping("/profile")
     public ModelAndView profile(){
+        
         ModelAndView mav = new ModelAndView(PROFILE_VEIW);
         mav.addObject("user",userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
         return mav;

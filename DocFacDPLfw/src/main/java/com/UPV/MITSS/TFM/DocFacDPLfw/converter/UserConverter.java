@@ -31,6 +31,7 @@ public class UserConverter {
         userModel.setTown(user.getTown());
         userModel.setAddress(user.getAddress());
         userModel.setSex(user.getSex());
+        userModel.setId(user.getId_usuario());
         return userModel;
     }
     
@@ -49,6 +50,7 @@ public class UserConverter {
         user.setTown(userModel.getTown());
         user.setAddress(userModel.getAddress());
         user.setSex(userModel.getSex());
+        user.setId_usuario(userModel.getId());
         return user;
     }
 }

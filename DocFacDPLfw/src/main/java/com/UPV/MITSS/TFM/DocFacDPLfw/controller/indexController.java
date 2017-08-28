@@ -11,6 +11,7 @@ import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.UserServiceImpl;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -40,6 +40,9 @@ public class indexController {
     public static final String REG_OK_VEIW = "registering";
     
     @Autowired
+    private HttpSession httpSession;
+    
+    @Autowired
     @Qualifier("userServiceImpl")
     private UserServiceImpl userService;
     
@@ -48,15 +51,21 @@ public class indexController {
             @CookieValue(value="rememberme",required=false) String cookie){
         
         ModelAndView mav;
+        
         if(cookie != null)
             if(userService.existUser(cookie)){
-                 mav = new ModelAndView(HOME_VEIW);
-                 userService.loadUserByUsername(cookie);
-                 mav.addObject("user",userService.getUser(cookie));
+                mav = new ModelAndView(HOME_VEIW);
+                userService.loadUserByUsername(cookie);
+                mav.addObject("user",userService.getUser(cookie));
+            }else
+                    mav = new ModelAndView(LOGIN_VEIW);
+        else 
+            if((UserModel)httpSession.getAttribute("currentUser") != null){
+                mav = new ModelAndView(HOME_VEIW);
+                userService.loadUserByUsername(((UserModel)httpSession.getAttribute("currentUser")).getEmail());
+                mav.addObject("user",userService.getUser(((UserModel)httpSession.getAttribute("currentUser")).getEmail()));
             }else
                 mav = new ModelAndView(LOGIN_VEIW);
-        else
-            mav = new ModelAndView(LOGIN_VEIW);
         
         mav.addObject("error", error);
         
@@ -65,7 +74,7 @@ public class indexController {
     
     @GetMapping("/registration")
     public ModelAndView registration(@CookieValue(value="rememberme",required=false) String cookie){
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav;
         if(cookie != null){
             if(userService.existUser(cookie)){
                 mav = new ModelAndView(HOME_VEIW);
@@ -110,7 +119,12 @@ public class indexController {
                 cookie.setMaxAge(0);
                 response.addCookie(cookie);
             }
-        
+        httpSession.invalidate();
         return new ModelAndView(LOGIN_VEIW);
+    }
+    
+    @GetMapping("/home")
+    public String redirectHome(){
+        return "redirect:/home/";
     }
 }

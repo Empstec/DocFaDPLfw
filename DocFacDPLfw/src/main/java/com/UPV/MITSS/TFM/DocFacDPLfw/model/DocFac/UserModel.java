@@ -21,6 +21,9 @@ public class UserModel {
     
     public static final String MALE = "M";
     public static final String FEMALE = "F";
+    
+    private int id;
+    
     @NotBlank
     private String name;
     @NotBlank
@@ -48,6 +51,22 @@ public class UserModel {
     public UserModel(){}
     
     public UserModel(String name, String surname, String email, String password, String company, String department, String role, String sex, String state, String province, String town, String address) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.company = company;
+        this.department = department;
+        this.role = role;
+        this.sex = sex;
+        this.state = state;
+        this.province = province;
+        this.town = town;
+        this.address = address;
+    }
+    
+    public UserModel(int id, String name, String surname, String email, String password, String company, String department, String role, String sex, String state, String province, String town, String address) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -176,6 +195,14 @@ public class UserModel {
     
     public void setRemember(String remember){
         this.remember = remember;
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(int id){
+        this.id = id;
     }
     
 }

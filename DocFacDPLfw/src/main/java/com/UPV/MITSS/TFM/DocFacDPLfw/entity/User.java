@@ -63,9 +63,6 @@ public class User {
     @Column(name="sexo")
     private String sex;
 
-    /*@Column(name="rememberMe")
-    private String rememberMe;*/
-
     @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
     Set<UserRole> userRoles = new HashSet<UserRole>();
     
@@ -88,8 +85,7 @@ public class User {
         this.userRoles = userRoles;
     }
     
-    public User(/*int id_usuario,*/ String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles) {
-        //this.id_usuario = id_usuario;
+    public User(String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -208,14 +204,6 @@ public class User {
     public void setSex(String sex) {
         this.sex = sex;
     }
-    
-    /*public String getRememberMe() {
-        return rememberMe;
-    }
-
-    public void setRememberMe(String rememberMe) {
-        this.rememberMe = rememberMe;
-    }*/
     
     public Set<UserRole> getUserRoles() {
         return userRoles;

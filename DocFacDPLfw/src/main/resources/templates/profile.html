@@ -50,7 +50,7 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
-                <li><a href="#" th:href="@{''}"><i class=" fa fa-suitcase"></i>Configuración personal</a></li>
+                <li><a href="#" th:href="@{'profile'}"><i class=" fa fa-suitcase"></i>Configuración personal</a></li>
                 <li><a href="#" th:href="@{/logout}"><i class="fa fa-key"></i> Cerrar Sesión</a></li>
             </ul>
         </li>
@@ -72,6 +72,7 @@
                                 <div class="col-md-offset-1 col-md-3 col-sm-12 col-xs-12">
                                     <p class="form-title">Detalles personales</p>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.toekn}" />
+                                    <input type="hidden" th:field="*{id}" value="*{id}" />
                                     <label>Nobre</label>
                                     <div th:if="${#fields.hasErrors('name')}" th:errors='*{name}' class="alert alert-danger registration-errors" role="alert">Campo obligatorio</div>
                                     <input th:field="*{name}" type="text" class="form-control" placeholder="Nombre" autofocus=""/>
@@ -101,10 +102,12 @@
                                     <p class="form-title">Detalles de la cuenta</p>
                                     <label>Correo electrónico</label>
                                     <div th:if="${#fields.hasErrors('email')}" th:errors='*{email}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
-                                    <input th:field="*{email}" type="email" class="form-control" placeholder="Correo electrónico"/>
+                                    <input th:field="*{email}" type="email" class="form-control" readonly="readonly"  placeholder="Correo electrónico"/>
+                                    <label>Contraseña antigua</label>
+                                    <input th:field="*{password}" id="old" type="password" class="form-control" placeholder="Contraseña antigua"/>
                                     <div class="alert alert-danger passReg registration-errors" role="alert" id="pwdError">No pueden estrar vacias y deben coincidir</div>
-                                    <label>Contraseña</label>
-                                    <input th:field="*{password}" id="pwd1" type="password" class="form-control" placeholder="Contraseña"/>
+                                    <label>Nueva contraseña</label>
+                                    <input th:field="*{password}" id="pwd1" type="password" class="form-control" placeholder="Nueva contraseña"/>
                                     <label>Repite la contraseña</label>
                                     <input th:field="*{password}" id="pwd2" type="password" class="form-control" placeholder="Repetir contraseña"/>
                                     <div th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="alert alert-danger registration-errors" role="alert">Campos obligatorios y deben coincidir</div>
@@ -143,7 +146,7 @@
 <script src="../static/js/jquery.nicescroll.js" th:src="@{/js/jquery.nicescroll.js}"></script>
 
 <script src="../static/js/base.js" th:src="@{/js/base.js}"></script>
-<script src="../static/js/functions.js" th:src="@{/js/functions.js}"></script>
+<script src="../static/js/validateProfile.js" th:src="@{/js/validateProfile.js}"></script>
 
 </body> 
 </html>
