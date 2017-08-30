@@ -5,12 +5,12 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.service.impl;
 
-import com.UPV.MITSS.TFM.DocFacDPLfw.repository.RoleJpaRepository;
-import com.UPV.MITSS.TFM.DocFacDPLfw.repository.UserJpaRepository;
+import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import java.util.Enumeration;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,20 +34,28 @@ public class RememberMeServicesImpl implements RememberMeServices,Authentication
     @Qualifier("userServiceImpl")
     private UserServiceImpl userService;
     
+    @Autowired
+    private HttpSession httpSession;
+    
     @Override
     public Authentication autoLogin(HttpServletRequest hsr, HttpServletResponse hsr1) {
-        for(Cookie cookie : hsr.getCookies())
-            if(cookie.getName().equals("rememberme")){
-                UserDetails user = userService.loadUserByUsername(cookie.getValue());
-                
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-                hsr.getSession();
+        if(hsr.getCookies()!=null)
+            for(Cookie cookie : hsr.getCookies())
+                if(cookie.getName().equals("rememberme")){
+                    UserDetails user = userService.loadUserByUsername(cookie.getValue());
 
-                token.setDetails(new WebAuthenticationDetails(hsr));
-                Authentication authenticatedUser = this.authenticate(token);
-                
-                SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
-            }
+                    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+                    hsr.getSession();
+
+                    token.setDetails(new WebAuthenticationDetails(hsr));
+                    Authentication authenticatedUser = this.authenticate(token);
+                    if(httpSession.getAttribute("currentUser") == null)
+                        httpSession.setAttribute("currentUser",userService.getUser(user.getUsername()));
+                    else if(!((UserModel)httpSession.getAttribute("currentUser")).getEmail().equals(user.getUsername()))
+                        httpSession.setAttribute("currentUser",userService.getUser(user.getUsername()));
+
+                    SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+                }
         return  SecurityContextHolder.getContext().getAuthentication();
     }
 
@@ -91,5 +99,9 @@ public class RememberMeServicesImpl implements RememberMeServices,Authentication
         User user = (User)userService.loadUserByUsername(username);
         return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
         
+    }
+    
+    public void closeCurrentSession(){
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

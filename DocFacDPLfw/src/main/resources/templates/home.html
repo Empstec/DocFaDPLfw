@@ -12,7 +12,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" th:href="@{/images/favicon.ico}"/>
 
-    
     <!--Core CSS -->
     <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
     <link href="/css/bootstrap-reset.css" th:href="@{/css/bootstrap-reset.css}" rel="stylesheet" media="screen"/>
@@ -31,9 +30,11 @@
 <section id="container" >
 <!--header start-->
 <header class="header fixed-top clearfix">
-<!--<div class="nav notify-row" id="top_menu">
-
-</div>-->
+<div class="brand">
+    <a href="/home/" th:href="@{/home/}" class="logo">
+        <img src="/images/logo.png" th:src="@{/images/logo.png}" alt="logo DocFac DPL" class="logo-img"/>
+    </a>
+</div>
 <div class="top-nav clearfix">
     <!--search start-->
     <ul class="nav pull-left top-menu">
@@ -66,7 +67,15 @@
         <div class="row">
             <div class="col-sm-12">
                 <section class="panel">
-                    <div class="panel-body">PROBE</div>
+                    <div class="panel-body">
+                        <div class="col-md-2 home-element">
+                            <a href="/create" th:href="@{create}">
+                                <div class="add-document">
+                                    <i class="fa fa-plus add-document-icon"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
@@ -75,7 +84,15 @@
     </section>
     <!--main content end-->
 </section>
-
+<div class="right-sidebar open-right-bar">
+    <div class="right-stat-bar">
+        <ul class="right-side-accordion">
+            <li class="widget-collapsible">
+                
+            </li>
+        </ul>
+    </div>
+</div>
 <!--Core js-->
 <script src="../static/js/jquery-3.1.1.js" th:src="@{/js/jquery-3.1.1.js}"></script>
 <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>

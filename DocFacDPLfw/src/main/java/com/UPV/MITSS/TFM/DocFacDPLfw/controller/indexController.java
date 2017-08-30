@@ -7,6 +7,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
 import static com.UPV.MITSS.TFM.DocFacDPLfw.controller.appController.HOME_VEIW;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
+import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.RememberMeServicesImpl;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.UserServiceImpl;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -46,26 +48,36 @@ public class indexController {
     @Qualifier("userServiceImpl")
     private UserServiceImpl userService;
     
+    @Autowired
+    @Qualifier("remembermeService")
+    private RememberMeServicesImpl rememberMe;
+    
     @GetMapping({"/","/index"})
     public ModelAndView index(@RequestParam(name="error",required=false) String error,
             @CookieValue(value="rememberme",required=false) String cookie){
         
         ModelAndView mav;
-        
-        if(cookie != null)
+        UserModel user;
+        if(cookie != null){
             if(userService.existUser(cookie)){
                 mav = new ModelAndView(HOME_VEIW);
-                userService.loadUserByUsername(cookie);
-                mav.addObject("user",userService.getUser(cookie));
-            }else
-                    mav = new ModelAndView(LOGIN_VEIW);
-        else 
-            if((UserModel)httpSession.getAttribute("currentUser") != null){
-                mav = new ModelAndView(HOME_VEIW);
-                userService.loadUserByUsername(((UserModel)httpSession.getAttribute("currentUser")).getEmail());
-                mav.addObject("user",userService.getUser(((UserModel)httpSession.getAttribute("currentUser")).getEmail()));
-            }else
+                UserDetails userDetails = userService.loadUserByUsername(cookie);
+                user = userService.getUser(cookie);
+                if(httpSession.getAttribute("currentUser")==null){
+                    httpSession.setAttribute("currentUser",user);
+                }else if(!((UserModel)httpSession.getAttribute("currentUser")).getEmail().equals(userDetails.getUsername())){
+                    httpSession.setAttribute("currentUser",user);
+                } 
+                mav.addObject("user",(UserModel)httpSession.getAttribute("currentUser"));
+            }else{
+                mav = new ModelAndView();
+            }
+        }else if(httpSession.getAttribute("currentUser")==null)
                 mav = new ModelAndView(LOGIN_VEIW);
+            else{
+                mav = new ModelAndView(HOME_VEIW);
+                mav.addObject("user",(UserModel)httpSession.getAttribute("currentUser"));
+            }
         
         mav.addObject("error", error);
         
@@ -119,7 +131,8 @@ public class indexController {
                 cookie.setMaxAge(0);
                 response.addCookie(cookie);
             }
-        httpSession.invalidate();
+        httpSession.removeAttribute("currentUser");
+        rememberMe.closeCurrentSession();
         return new ModelAndView(LOGIN_VEIW);
     }
     

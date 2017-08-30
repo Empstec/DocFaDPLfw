@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -47,7 +48,7 @@ public class appController {
     public ModelAndView loginValidate(@CookieValue(value="rememberme", required=false) String cookie){
         ModelAndView mav = new ModelAndView(HOME_VEIW);
         
-        com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel cModelUser;
+        UserModel cModelUser;
         
         if(cookie == null){
             User currentUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Usuario Actual
@@ -56,7 +57,10 @@ public class appController {
             cModelUser = userService.getUser(cookie);
         }
         
-        httpSession.setAttribute("currentUser", cModelUser);
+        if(httpSession.getAttribute("currentUser")== null)
+            httpSession.setAttribute("currentUser", cModelUser);
+        else if(!((UserModel)httpSession.getAttribute("currentUser")).getEmail().equals(cModelUser.getEmail()))
+            httpSession.setAttribute("currentUser", cModelUser);
         
         mav.addObject("user",cModelUser);
         
@@ -72,7 +76,6 @@ public class appController {
     
     @GetMapping("/profile")
     public ModelAndView profile(){
-        
         ModelAndView mav = new ModelAndView(PROFILE_VEIW);
         mav.addObject("user",userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
         return mav;
@@ -80,9 +83,25 @@ public class appController {
     
     @PostMapping("/saveProfile")
     public ModelAndView saveProfileChanges(@Valid @ModelAttribute("user") UserModel user, BindingResult bindingResult){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName(PROFILE_VEIW);
         if(!bindingResult.hasErrors()){
-            userService.updateUser(user);
+            UserModel currentModelUser = (UserModel)httpSession.getAttribute("currentUser"); 
+            user.setEmail(currentModelUser.getEmail());
+            String oldPassSend = user.getPassword().split(",")[0];
+            BCryptPasswordEncoder pwd = new BCryptPasswordEncoder();
+            if(pwd.matches(oldPassSend,currentModelUser.getPassword()) && user.getPassword().split(",")[1].length()>0){
+                String newPass = user.getPassword().split(",")[1];
+                if(newPass.length()>50 || newPass.length()<8){
+                    bindingResult.rejectValue("password", "error.user","La longitud tiene que estar entre 8 y 50");
+                    user.setPassword(currentModelUser.getPassword());
+                }else
+                    user.setPassword(pwd.encode(newPass));
+            }else{
+                user.setPassword(currentModelUser.getPassword());
+            }
+            httpSession.setAttribute("currentUser",userService.updateUser(user));
         }
-        return new ModelAndView(PROFILE_VEIW);
+        return mav;
     }
 }

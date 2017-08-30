@@ -31,9 +31,11 @@
 <section id="container" >
 <!--header start-->
 <header class="header fixed-top clearfix">
-<!--<div class="nav notify-row" id="top_menu">
-
-</div>-->
+<div class="brand">
+    <a href="/home/" th:href="@{/home/}" class="logo">
+        <img src="/images/logo.png" th:src="@{/images/logo.png}" alt="logo DocFac DPL" class="logo-img"/>
+    </a>
+</div>
 <div class="top-nav clearfix">
     <!--search start-->
     <ul class="nav pull-left top-menu">
@@ -110,7 +112,7 @@
                                     <input th:field="*{password}" id="pwd1" type="password" class="form-control" placeholder="Nueva contraseña"/>
                                     <label>Repite la contraseña</label>
                                     <input th:field="*{password}" id="pwd2" type="password" class="form-control" placeholder="Repetir contraseña"/>
-                                    <div th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="alert alert-danger registration-errors" role="alert">Campos obligatorios y deben coincidir</div>
+                                    <div th:if="${#fields.hasErrors('password')}" th:errors='*{password}' class="alert alert-danger registration-errors" role="alert">Deben coincidir</div>
                                 </div>
                                 <div class="col-md-3 col-sm-12 col-xs-12">
                                     <p class="form-title">Detalles de empresa</p>
