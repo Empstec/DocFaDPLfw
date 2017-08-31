@@ -305,11 +305,15 @@ ul.sidebar-menu li a.active i {
 }
 /*main content*/
 #main-content {
-    margin-right:240px;
+    /*margin-right:240px;*/
     -webkit-transition:all .3s ease-in-out;
     -moz-transition:all .3s ease-in-out;
     -o-transition:all .3s ease-in-out;
     transition:all .3s ease-in-out;
+}
+
+.righ-open{
+    margin-right:240px;
 }
 .footer {
     min-height:60px;

@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author S
+ * @author Salvador Puertes Aleixandre
  */
 @Entity
 @Table(name="Usuarios")
@@ -64,11 +64,36 @@ public class User {
     private String sex;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
-    Set<UserRole> userRoles = new HashSet<UserRole>();
+    private Set<UserRole> userRoles = new HashSet<UserRole>();
+    
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
+    private Set<Content> contents = new HashSet<Content>();
+    
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="pk.user")
+    private Set<Permission> permissions = new HashSet<Permission>();
+    
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="user")
+    private Set<Document> documents = new HashSet<Document>();
     
     public User(){}
 
-    public User(int id_usuario, String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles) {
+    public User(int id_usuario, String name, String surname, String email, String password, String company, String department, String role, String state, String province, String town, String address, String sex) {
+        this.id_usuario = id_usuario;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.company = company;
+        this.department = department;
+        this.role = role;
+        this.state = state;
+        this.province = province;
+        this.town = town;
+        this.address = address;
+        this.sex = sex;
+    }
+    
+    public User(int id_usuario, String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles, Set<Content> contents, Set<Permission> permissions, Set<Document> documents) {
         this.id_usuario = id_usuario;
         this.name = name;
         this.surname = surname;
@@ -83,9 +108,12 @@ public class User {
         this.address = address;
         this.sex = sex;
         this.userRoles = userRoles;
+        this.contents = contents;
+        this.permissions = permissions;
+        this.documents = documents;
     }
     
-    public User(String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles) {
+    public User(String name, String surname, String email, String password, String company, String department, String role, String state,String province, String town, String address, String sex, Set<UserRole> userRoles,Set<Content> contents, Set<Permission> permissions, Set<Document> documents) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -99,6 +127,9 @@ public class User {
         this.address = address;
         this.sex = sex;
         this.userRoles = userRoles;
+        this.contents = contents;
+        this.permissions = permissions;
+        this.documents = documents;
     }
 
     public int getId_usuario() {
@@ -211,5 +242,29 @@ public class User {
 
     public void setUserRoles(Set<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+    
+    public Set<Content> getContent() {
+        return contents;
+    }
+
+    public void setContent(Set<Content> contents) {
+        this.contents = contents;
+    }
+    
+    public Set<Permission> getPermissions() {
+        return this.permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
+    
+    public Set<Document> getDocuments() {
+        return this.documents;
+    }
+    
+    public void setDocuments(Set<Document> documents) {
+        this.documents = documents;
     }
 }
