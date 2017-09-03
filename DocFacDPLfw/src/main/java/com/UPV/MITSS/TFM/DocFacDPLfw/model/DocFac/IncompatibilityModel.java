@@ -10,5 +10,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  * @author S
  */
 public class IncompatibilityModel {
+    private FeatureModel feaure;
+    private FeatureModel incompatible;
     private String type;
 }

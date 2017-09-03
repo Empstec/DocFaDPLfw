@@ -10,5 +10,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  * @author S
  */
 public class RequirementModel {
+    private FeatureModel feature;
+    private FeatureModel required;
     private String type;
 }

@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class GroupRelationModel extends RelationModel{
     private int id;
-    private FeatureModel source;
-    private Map<Integer,DirectRelationModel> relations; // Integer = id_Direct_Relacion
+    private FeatureModel destiny;
+    private Map<String,DirectRelationModel> relations; // String = source;destiny
     
 }

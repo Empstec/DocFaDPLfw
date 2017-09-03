@@ -9,8 +9,9 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  *
  * @author S
  */
+// Down to Up
 public class DirectRelationModel extends RelationModel{
-    private int id;
-    private FeatureModel source; // Father
-    private FeatureModel destiny; // Child
+    private FeatureModel source; // Child
+    private FeatureModel destiny; // Father
+    private GroupRelationModel group;
 }

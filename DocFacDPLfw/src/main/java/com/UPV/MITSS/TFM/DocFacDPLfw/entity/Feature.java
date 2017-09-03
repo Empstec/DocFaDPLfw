@@ -33,7 +33,7 @@ public class Feature {
     @Column(name="nombre")
     private String name;
     
-    @Column(name="isRoot")
+    @Column(name="isroot")
     private boolean isroot;
     
     @OneToOne

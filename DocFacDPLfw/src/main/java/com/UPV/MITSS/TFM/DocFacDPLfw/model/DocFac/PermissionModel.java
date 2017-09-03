@@ -11,7 +11,6 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  */
 
 public class PermissionModel {
-    private int id;
     private DocumentModel doc;
     private UserModel user;
     private boolean read;
@@ -66,6 +65,7 @@ public class PermissionModel {
         this.write = write;
     }
     
+    @Override
     public String toString(){
         String permissions = "";
         
@@ -80,5 +80,21 @@ public class PermissionModel {
             permissions+="-";
         
         return permissions;
+    }
+
+    public DocumentModel getDoc() {
+        return doc;
+    }
+
+    public void setDoc(DocumentModel doc) {
+        this.doc = doc;
+    }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }

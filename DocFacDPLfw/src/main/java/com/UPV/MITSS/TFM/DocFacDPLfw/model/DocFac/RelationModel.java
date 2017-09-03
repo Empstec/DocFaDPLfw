@@ -9,7 +9,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  *
  * @author S
  */
-public class RelationModel {
+public abstract class RelationModel {
     
     public static final String DIRECT = "Direct";
     public static final String GROUP = "Group";

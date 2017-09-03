@@ -19,12 +19,14 @@ public class FeatureModel {
     public static final String MANDATORY = "Mandatory";
     public static final String OPTIONAL = "Optional";
     public static final String FATHER = "Father";
-    public static final String CHILD = "Cild";
+    public static final String CHILD = "Child";
     public static final String GROUP = "Group";
     
     private int id;
     private boolean root;
     private String name;
+    private FeatureModel prev;
+    private FeatureModel post;
     private Map<Integer,PropertyModel> properties; // Ingeger = id_Property
     private Map<Integer,Entry<FeatureModel,String>> requirements; // Integer = id_Feature destiny
     private Map<Integer,Entry<FeatureModel,String>> incompatibilities; // Integer = id_Feature destiny2

@@ -32,5 +32,55 @@ public class PropertyModel {
     private String type;
     private FeatureModel feature;
     private Map<Integer,ContentModel> contens; // Integer = id_Content
-    
+
+    public PropertyModel() {
+    }
+
+    public PropertyModel(int id, String name, String type, FeatureModel feature, Map<Integer, ContentModel> contens) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.feature = feature;
+        this.contens = contens;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public FeatureModel getFeature() {
+        return feature;
+    }
+
+    public void setFeature(FeatureModel feature) {
+        this.feature = feature;
+    }
+
+    public Map<Integer, ContentModel> getContens() {
+        return contens;
+    }
+
+    public void setContens(Map<Integer, ContentModel> contens) {
+        this.contens = contens;
+    }   
 }
