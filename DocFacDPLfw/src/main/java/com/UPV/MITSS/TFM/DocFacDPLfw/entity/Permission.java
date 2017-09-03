@@ -11,7 +11,9 @@ import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,70 +23,51 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="permisos")
-@AssociationOverrides({
+/*@AssociationOverrides({
     @AssociationOverride(name = "pk.user",joinColumns = @JoinColumn(name = "id_Usuario")),
-    @AssociationOverride(name = "pk.docuemnt",joinColumns = @JoinColumn(name = "id_Documento")) })
+    @AssociationOverride(name = "pk.docuemnt",joinColumns = @JoinColumn(name = "id_Documento")) })*/
 public class Permission implements Serializable{
-    private DocumentUserId pk = new DocumentUserId();
+    @Id
+    @ManyToOne
+    private Document document;
     
+    @Id
+    @ManyToOne
+    private User user;
+    
+    @Column(name="permisos")
     private String permissions;
     
     public Permission(){}
 
+    public Permission(Document document, User user, String permissions) {
+        this.document = document;
+        this.user = user;
+        this.permissions = permissions;
+    }
+    
     public void setPermissions(String permissions){
         this.permissions = permissions;
     }
     
-    @Column(name="permisos")
+    
     public String getPermissions(){
         return this.permissions;
     }
-    
-    @EmbeddedId
-    public DocumentUserId getPk(){
-        return this.pk;
-    }
-    
-    public void setPk(DocumentUserId pk){
-        this.pk = pk;
-    }
-    
-    @Transient
-    public Document getDocument(){
-       return this.getPk().getDocument();
-    }
-    
-    public void setDocuemnt(Document document){
-        this.getPk().setDocument(document);
-    }
-    
-    @Transient
-    public User getUser(){
-        return this.getPk().getUser();
-    }
-    
-    public void setUser(User user){
-        this.getPk().setUser(user);
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-	if (o == null || getClass() != o.getClass())
-            return false;
 
-	Permission that = (Permission) o;
-
-	if (getPk() != null ? !getPk().equals(that.getPk()) : that.getPk() != null)
-            return false;
-
-	return true;
+    public Document getDocument() {
+        return document;
     }
 
-    @Override
-    public int hashCode() {
-        return (getPk() != null ? getPk().hashCode() : 0);
+    public void setDocument(Document document) {
+        this.document = document;
     }
-    
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

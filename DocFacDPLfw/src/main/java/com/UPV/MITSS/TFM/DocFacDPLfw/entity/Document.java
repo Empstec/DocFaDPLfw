@@ -40,7 +40,7 @@ public class Document {
     @JoinColumn(name="id_Usuario",nullable = false)
     private User user;
     
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="pk.document")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="document")
     private Set<Permission> permissions = new HashSet<Permission>();
     
     @OneToMany(fetch = FetchType.EAGER,mappedBy="document")

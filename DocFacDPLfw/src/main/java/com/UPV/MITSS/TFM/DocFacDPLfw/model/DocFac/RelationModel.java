@@ -14,6 +14,7 @@ public class RelationModel {
     public static final String DIRECT = "Direct";
     public static final String GROUP = "Group";
     
+    private int id;
     private String type;
     private int mult_Min;
     private int mult_Max;

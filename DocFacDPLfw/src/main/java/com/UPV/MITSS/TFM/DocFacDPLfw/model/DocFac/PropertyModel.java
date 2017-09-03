@@ -27,6 +27,7 @@ public class PropertyModel {
     public static final String AUDIO ="AUDIO";
     public static final String TABLE ="TABLE";
     
+    private int id;
     private String name;
     private String type;
     private FeatureModel feature;

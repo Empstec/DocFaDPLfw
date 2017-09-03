@@ -12,6 +12,7 @@ import java.util.Map;
  * @author S
  */
 public class GroupRelationModel extends RelationModel{
+    private int id;
     private FeatureModel source;
     private Map<Integer,DirectRelationModel> relations; // Integer = id_Direct_Relacion
     

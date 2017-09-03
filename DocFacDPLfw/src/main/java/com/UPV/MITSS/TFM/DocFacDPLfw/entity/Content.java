@@ -44,8 +44,8 @@ public class Content {
     @JoinColumn(name="id_Usuario",nullable = false)
     private User user;
     
-    @ManyToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL,mappedBy="contents")
-    @JoinTable(name = "Contenidos_Propiedades", joinColumns = {@JoinColumn(name = "id_Contenido", nullable=false, updatable=false)}, inverseJoinColumns = {@JoinColumn(name = "id_Propiedad", nullable=false, updatable=false)})
+    @ManyToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL/*,mappedBy="contents"*/)
+    @JoinTable(name = "Contenidos_Propiedades", joinColumns = {@JoinColumn(name = "id_Contenidos", nullable=false, updatable=false)}, inverseJoinColumns = {@JoinColumn(name = "id_Propiedades", nullable=false, updatable=false)})
     private Set<Property> properties = new HashSet<Property>();
     
     public Content(){}

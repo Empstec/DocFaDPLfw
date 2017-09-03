@@ -69,7 +69,7 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
     private Set<Content> contents = new HashSet<Content>();
     
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="pk.user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="user")
     private Set<Permission> permissions = new HashSet<Permission>();
     
     @OneToMany(fetch = FetchType.LAZY,mappedBy="user")

@@ -14,6 +14,7 @@ import java.util.Map.Entry;
  * @author S
  */
 public class DocumentModel {
+    private int id;
     private String title;
     private String descripion;  
     private UserModel author;

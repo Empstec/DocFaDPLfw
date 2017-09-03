@@ -11,6 +11,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  */
 
 public class PermissionModel {
+    private int id;
     private DocumentModel doc;
     private UserModel user;
     private boolean read;

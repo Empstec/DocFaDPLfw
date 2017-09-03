@@ -22,6 +22,7 @@ public class FeatureModel {
     public static final String CHILD = "Cild";
     public static final String GROUP = "Group";
     
+    private int id;
     private boolean root;
     private String name;
     private Map<Integer,PropertyModel> properties; // Ingeger = id_Property

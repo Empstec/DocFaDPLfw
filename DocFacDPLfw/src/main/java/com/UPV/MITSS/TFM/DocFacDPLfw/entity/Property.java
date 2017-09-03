@@ -35,7 +35,7 @@ public class Property {
     @Column(name="tipo")
     private String type;
     
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy="properties")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy="properties")
     private Set<Content> contents = new HashSet<Content>();
     
     @ManyToOne(fetch=FetchType.EAGER)

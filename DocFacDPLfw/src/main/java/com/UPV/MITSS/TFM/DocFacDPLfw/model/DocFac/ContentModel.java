@@ -13,6 +13,7 @@ import java.util.HashMap;
  * @author S
  */
 public class ContentModel {
+    private int id;
     //private User author;
     private String typeProperty; // Get value from PropertyModel class
     private String content;

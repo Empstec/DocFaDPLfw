@@ -9,8 +9,6 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
  *
  * @author S
  */
-public class DirectRelationModel extends RelationModel{
-    private int id;
-    private FeatureModel source; // Father
-    private FeatureModel destiny; // Child
+public class IncompatibilityModel {
+    private String type;
 }
