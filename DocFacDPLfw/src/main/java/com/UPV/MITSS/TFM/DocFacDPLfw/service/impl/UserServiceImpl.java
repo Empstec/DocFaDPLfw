@@ -8,7 +8,6 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.service.impl;
 import com.UPV.MITSS.TFM.DocFacDPLfw.constants.UserRoles;
 import com.UPV.MITSS.TFM.DocFacDPLfw.converter.UserConverter;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.UserRole;
-//import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.RoleJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.UserJpaRepository;

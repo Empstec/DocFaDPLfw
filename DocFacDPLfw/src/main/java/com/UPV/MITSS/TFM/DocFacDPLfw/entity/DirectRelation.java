@@ -6,19 +6,12 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -30,12 +23,12 @@ import javax.persistence.Table;
 public class DirectRelation implements Serializable{
     @Id
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_Caracteristica",nullable = false)
+    @JoinColumn(name="id_Caracteristica_Origen",nullable = false)
     private Feature origin;
     
     @Id
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_Caracteristica",nullable = false)
+    @JoinColumn(name="id_Caracteristica_Destino",nullable = false)
     private Feature destiny;
     
     @Column(name="mult_max")
@@ -45,7 +38,7 @@ public class DirectRelation implements Serializable{
     private int mult_min;
     
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_Relacion",nullable = true)
+    @JoinColumn(name="id_Grupo",nullable = true)
     private GroupRelation group;
 
     public DirectRelation(){}

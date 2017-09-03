@@ -72,7 +72,7 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY,mappedBy="user")
     private Set<Permission> permissions = new HashSet<Permission>();
     
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="user")
+    @OneToMany(fetch = FetchType.LAZY,mappedBy="author")
     private Set<Document> documents = new HashSet<Document>();
     
     public User(){}

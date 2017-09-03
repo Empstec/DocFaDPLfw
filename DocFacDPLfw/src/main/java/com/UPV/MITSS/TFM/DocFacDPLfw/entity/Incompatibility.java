@@ -6,18 +6,13 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
 import java.io.Serializable;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -32,11 +27,11 @@ public class Incompatibility implements Serializable{
     @Id
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_Caracteristica",nullable = false)
-    private Feature id_Feature;
+    private Feature id_feature;
     
     @Id
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="id_Caracteristica",nullable = false)
+    @JoinColumn(name="incompatible",nullable = false)
     private Feature incompatible;
     
     @Column(name="tipo")
@@ -44,8 +39,8 @@ public class Incompatibility implements Serializable{
     
     public Incompatibility(){}
 
-    public Incompatibility(Feature id_Feature, Feature incompatible, String type) {
-        this.id_Feature = id_Feature;
+    public Incompatibility(Feature id_feature, Feature incompatible, String type) {
+        this.id_feature = id_feature;
         this.incompatible = incompatible;
         this.type = type;
     }
@@ -59,11 +54,11 @@ public class Incompatibility implements Serializable{
     }
 
     public Feature getId_feature() {
-        return id_Feature;
+        return id_feature;
     }
 
-    public void setId_feature(Feature id_Feature) {
-        this.id_Feature = id_Feature;
+    public void setId_feature(Feature id_feature) {
+        this.id_feature = id_feature;
     }
 
     public Feature getIncompatible() {

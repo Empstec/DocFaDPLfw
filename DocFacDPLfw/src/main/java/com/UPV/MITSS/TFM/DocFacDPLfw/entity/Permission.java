@@ -6,16 +6,13 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
 import java.io.Serializable;
-import javax.persistence.AssociationOverride;
-import javax.persistence.AssociationOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  *
@@ -28,11 +25,13 @@ import javax.persistence.Transient;
     @AssociationOverride(name = "pk.docuemnt",joinColumns = @JoinColumn(name = "id_Documento")) })*/
 public class Permission implements Serializable{
     @Id
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_Documento",nullable = false)
     private Document document;
     
     @Id
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_Usuario",nullable = false)
     private User user;
     
     @Column(name="permisos")

@@ -10,5 +10,5 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.constants;
  * @author S
  */
 public class UserRoles {
-    public static String ROLE_USER = "USER_ROLE";
+    public static String ROLE_USER = "ROLE_USER";
 }
