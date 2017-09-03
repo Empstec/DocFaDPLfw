@@ -13,4 +13,37 @@ public class IncompatibilityModel {
     private FeatureModel feaure;
     private FeatureModel incompatible;
     private String type;
+
+    public IncompatibilityModel() {
+    }
+
+    public IncompatibilityModel(FeatureModel feaure, FeatureModel incompatible, String type) {
+        this.feaure = feaure;
+        this.incompatible = incompatible;
+        this.type = type;
+    }
+
+    public FeatureModel getFeaure() {
+        return feaure;
+    }
+
+    public void setFeaure(FeatureModel feaure) {
+        this.feaure = feaure;
+    }
+
+    public FeatureModel getIncompatible() {
+        return incompatible;
+    }
+
+    public void setIncompatible(FeatureModel incompatible) {
+        this.incompatible = incompatible;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

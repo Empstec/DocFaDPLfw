@@ -5,9 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -46,7 +44,7 @@ public class UserModel {
     private String remember;
     private Map<Integer,DocumentModel> documents; // Integer = id_Document
     private Map<Integer,ContentModel> contents; // Integer = id_Content
-    private Map<Integer,Entry<DocumentModel,PermissionModel>> permissions; // Integer = id_Document
+    private Map<Integer,PermissionModel> permissions; // Integer = id_Document
     
     public UserModel(){}
     
@@ -79,6 +77,26 @@ public class UserModel {
         this.province = province;
         this.town = town;
         this.address = address;
+    }
+
+    public UserModel(int id, String name, String surname, String email, String password, String company, String department, String role, String sex, String state, String province, String town, String address, String remember, Map<Integer, DocumentModel> documents, Map<Integer, ContentModel> contents, Map<Integer, PermissionModel> permissions) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.company = company;
+        this.department = department;
+        this.role = role;
+        this.sex = sex;
+        this.state = state;
+        this.province = province;
+        this.town = town;
+        this.address = address;
+        this.remember = remember;
+        this.documents = documents;
+        this.contents = contents;
+        this.permissions = permissions;
     }
     
     public String getName() {
@@ -137,10 +155,14 @@ public class UserModel {
         return contents;
     }
 
-    public Map<Integer, Entry<DocumentModel, PermissionModel>> getPermissions() {
+    public Map<Integer, PermissionModel> getPermissions() {
         return permissions;
     }
-
+    
+    public void setPermissions(Map<Integer, PermissionModel> permissions) {
+        this.permissions = permissions;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -204,5 +226,28 @@ public class UserModel {
     public void setId(int id){
         this.id = id;
     }
+ 
+    public void setDocument(int id, DocumentModel document){
+        this.documents.putIfAbsent(id, document);
+    }
     
+    public DocumentModel getDocument(int id){
+        return this.documents.get(id);
+    }
+    
+    public void setContent(int id, ContentModel content){
+        this.contents.putIfAbsent(id, content);
+    }
+    
+    public ContentModel getContent(int id){
+        return this.contents.get(id);
+    }
+    
+    public void setPermission(int id, PermissionModel permission){
+        this.permissions.putIfAbsent(id, permission);
+    }
+    
+    public PermissionModel getPermission(int id){
+        return this.permissions.get(id);
+    }
 }

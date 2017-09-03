@@ -6,7 +6,6 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  *
@@ -33,8 +32,7 @@ public class PropertyModel {
     private FeatureModel feature;
     private Map<Integer,ContentModel> contens; // Integer = id_Content
 
-    public PropertyModel() {
-    }
+    public PropertyModel() {}
 
     public PropertyModel(int id, String name, String type, FeatureModel feature, Map<Integer, ContentModel> contens) {
         this.id = id;
@@ -45,7 +43,7 @@ public class PropertyModel {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -53,7 +51,7 @@ public class PropertyModel {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -61,7 +59,7 @@ public class PropertyModel {
     }
 
     public String getType() {
-        return type;
+        return this.type;
     }
 
     public void setType(String type) {
@@ -69,7 +67,7 @@ public class PropertyModel {
     }
 
     public FeatureModel getFeature() {
-        return feature;
+        return this.feature;
     }
 
     public void setFeature(FeatureModel feature) {
@@ -77,10 +75,18 @@ public class PropertyModel {
     }
 
     public Map<Integer, ContentModel> getContens() {
-        return contens;
+        return this.contens;
     }
 
     public void setContens(Map<Integer, ContentModel> contens) {
         this.contens = contens;
-    }   
+    }
+    
+    public void setContent(int id, ContentModel content){
+        this.contens.putIfAbsent(id, content);
+    }
+    
+    public ContentModel getConent(int id){
+        return this.contens.get(id);
+    }
 }

@@ -7,7 +7,6 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
 import java.util.Map;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 /**
  *
@@ -18,15 +17,15 @@ public class DocumentModel {
     private String title;
     private String descripion;  
     private UserModel author;
-    private Map<Integer,Entry<UserModel,PermissionModel>> permissions; // Integer = id_User
+    private Map<Integer,PermissionModel> permissions; // Integer = id_User
     private Map<Integer,FeatureModel> features; // Integer = id_Feature
 
     public DocumentModel(){
-        permissions = new HashMap<>();
-        features = new HashMap<>();
+        this.permissions = new HashMap<>();
+        this.features = new HashMap<>();
     }
     
-    public DocumentModel(String title, String descripion, UserModel author, Map<Integer, Entry<UserModel, PermissionModel>> permissions, Map<Integer, FeatureModel> features) {
+    public DocumentModel(String title, String descripion, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
         this.title = title;
         this.descripion = descripion;
         this.author = author;
@@ -34,7 +33,7 @@ public class DocumentModel {
         this.features = features;
     }
 
-    public DocumentModel(int id, String title, String descripion, UserModel author, Map<Integer, Entry<UserModel, PermissionModel>> permissions, Map<Integer, FeatureModel> features) {
+    public DocumentModel(int id, String title, String descripion, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
         this.id = id;
         this.title = title;
         this.descripion = descripion;
@@ -44,7 +43,7 @@ public class DocumentModel {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -52,7 +51,7 @@ public class DocumentModel {
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String title) {
@@ -60,7 +59,7 @@ public class DocumentModel {
     }
 
     public String getDescripion() {
-        return descripion;
+        return this.descripion;
     }
 
     public void setDescripion(String descripion) {
@@ -68,34 +67,50 @@ public class DocumentModel {
     }
 
     public UserModel getAuthor() {
-        return author;
+        return this.author;
     }
 
     public void setAuthor(UserModel author) {
         this.author = author;
     }
 
-    public Map<Integer, Entry<UserModel, PermissionModel>> getPermissions() {
-        return permissions;
+    public Map<Integer, PermissionModel> getPermissions() {
+        return this.permissions;
     }
 
-    public void setPermissions(Map<Integer, Entry<UserModel, PermissionModel>> permissions) {
+    public void setPermissions(Map<Integer, PermissionModel> permissions) {
         this.permissions = permissions;
     }
 
     public Map<Integer, FeatureModel> getFeatures() {
-        return features;
+        return this.features;
     }
 
     public void setFeatures(Map<Integer, FeatureModel> features) {
         this.features = features;
     }
     
-    public void setFeature(int id, FeatureModel feature){
-        this.features.putIfAbsent(id, feature);
+    public void setFeatures(int id, FeatureModel features){
+        this.features.putIfAbsent(id, features);
+    }
+    
+    public FeatureModel getFeatures(int id){
+        return this.features.get(id);
+    }
+    
+    public void setFeature(int id, FeatureModel fueature){
+        this.features.putIfAbsent(id, fueature);
     }
     
     public FeatureModel getFeature(int id){
         return this.features.get(id);
+    }
+    
+    public void setPermission(int id, PermissionModel permission){
+        this.permissions.putIfAbsent(id, permission);
+    }
+    
+    public PermissionModel getPermission(int id){ // id_Usuario
+        return this.permissions.get(id);
     }
 }

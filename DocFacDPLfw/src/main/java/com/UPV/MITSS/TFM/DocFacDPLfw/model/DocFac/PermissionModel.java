@@ -16,11 +16,29 @@ public class PermissionModel {
     private boolean read;
     private boolean write;
     
+    public PermissionModel(){
+        this.read = false;
+        this.write = false;
+    }
+    
     public PermissionModel(DocumentModel doc, UserModel user){
         this.doc = doc;
         this.user = user;
         this.read = false;
         this.write = false;
+    }
+    
+    public PermissionModel(DocumentModel doc, UserModel user, String permissions){
+        this.doc = doc;
+        this.user = user;
+        if(permissions.length()>=1 && permissions.length()<=2){
+            permissions = permissions.toUpperCase();
+            this.read = permissions.contains("R");
+            this.write = permissions.contains("W");
+        }else{
+            this.read = false;
+            this.write = false;
+        }
     }
     
     public PermissionModel(DocumentModel doc, UserModel user, boolean read,boolean write){
@@ -70,12 +88,12 @@ public class PermissionModel {
         String permissions = "";
         
         if(this.read)
-            permissions+="r";
+            permissions+="w";
         else
             permissions+="-";
         
         if(this.write)
-            permissions+="w";
+            permissions+="r";
         else
             permissions+="-";
         
@@ -96,5 +114,16 @@ public class PermissionModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+    
+    public void serPermissions(String permissions){
+        if(permissions.length()>=1 && permissions.length()<=2){
+            permissions = permissions.toUpperCase();
+            this.read = permissions.contains("R");
+            this.write = permissions.contains("W");
+        }else{
+            this.read = false;
+            this.write = false;
+        }
     }
 }
