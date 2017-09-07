@@ -5,10 +5,26 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.converter;
 
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Incompatibility;
+import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.IncompatibilityModel;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author S
  */
+@Component("incompatibilityConverter")
 public class IncompatibilityConverter {
     
+    public IncompatibilityModel convertEntity2Model(Incompatibility incompatibility){
+        IncompatibilityModel incompatibilityModel = new IncompatibilityModel();
+        
+        return incompatibilityModel;
+    }
+    
+    public Incompatibility convertModel2Entity(IncompatibilityModel incompatibility){
+        Incompatibility incompatibilityEntity = new Incompatibility();
+        
+        return incompatibilityEntity;
+    }
 }

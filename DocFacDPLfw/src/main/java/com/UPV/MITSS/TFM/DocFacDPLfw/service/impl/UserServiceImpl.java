@@ -53,28 +53,28 @@ public class UserServiceImpl implements UserService,UserDetailsService{
         List<com.UPV.MITSS.TFM.DocFacDPLfw.entity.User> userList = userJpaRepository.findAll();
         List<UserModel> userModelList = new ArrayList<UserModel>();
         for(com.UPV.MITSS.TFM.DocFacDPLfw.entity.User u : userList ){
-            userModelList.add(converter.convertUserentity2Usermodel(u));
+            userModelList.add(converter.convertEntity2Model(u));
         }
         return userModelList;
     }
 
     @Override
     public UserModel addUser(UserModel user) {
-        com.UPV.MITSS.TFM.DocFacDPLfw.entity.User userEntity = converter.convertUsermodel2Userentity(user);
-        UserModel userReturn = converter.convertUserentity2Usermodel(userJpaRepository.save(userEntity)); 
+        com.UPV.MITSS.TFM.DocFacDPLfw.entity.User userEntity = converter.convertModel2Entity(user);
+        UserModel userReturn = converter.convertEntity2Model(userJpaRepository.save(userEntity)); 
         roleJpaRepository.save(new UserRole(userEntity, UserRoles.ROLE_USER));
         return userReturn; 
     }
 
     @Override
     public int removeUser(int id_User) {
-        userJpaRepository.delete(id_User);
+        userJpaRepository.delete(id_User);  
         return 0;
     }
 
     @Override
     public UserModel updateUser(UserModel user) {
-        return converter.convertUserentity2Usermodel(userJpaRepository.save(converter.convertUsermodel2Userentity(user)));
+        return converter.convertEntity2Model(userJpaRepository.save(converter.convertModel2Entity(user)));
     }
 
    
@@ -104,6 +104,6 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
     @Override
     public UserModel getUser(String email) {
-        return converter.convertUserentity2Usermodel(userJpaRepository.findOneByEmail(email));
+        return converter.convertEntity2Model(userJpaRepository.findOneByEmail(email));
     }
 }

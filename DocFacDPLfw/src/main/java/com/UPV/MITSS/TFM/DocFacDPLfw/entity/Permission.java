@@ -9,9 +9,13 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -20,42 +24,46 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="permisos")
-/*@AssociationOverrides({
-    @AssociationOverride(name = "pk.user",joinColumns = @JoinColumn(name = "id_Usuario")),
-    @AssociationOverride(name = "pk.docuemnt",joinColumns = @JoinColumn(name = "id_Documento")) })*/
+//@IdClass(PermissionId.class)
 public class Permission implements Serializable{
     @Id
+    @GeneratedValue
+    //@MapsId("id_documento")
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_Documento",nullable = false)
+    @PrimaryKeyJoinColumn(name="id_documento", referencedColumnName="id_Documento")
     private Document document;
     
     @Id
+    @GeneratedValue
+    //@MapsId("id_usuario")
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="id_Usuario",nullable = false)
+    @PrimaryKeyJoinColumn(name="id_usuario", referencedColumnName="id_usuario")
     private User user;
     
     @Column(name="permisos")
     private String permissions;
     
     public Permission(){}
-
+    
     public Permission(Document document, User user, String permissions) {
         this.document = document;
         this.user = user;
         this.permissions = permissions;
+        
     }
     
     public void setPermissions(String permissions){
         this.permissions = permissions;
     }
     
-    
     public String getPermissions(){
         return this.permissions;
     }
-
-    public Document getDocument() {
-        return document;
+    
+    public Document getDocuemnt() {
+        return this.document;
     }
 
     public void setDocument(Document document) {

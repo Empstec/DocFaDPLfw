@@ -6,6 +6,7 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
 import static com.UPV.MITSS.TFM.DocFacDPLfw.controller.appController.HOME_VEIW;
+import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.RememberMeServicesImpl;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.UserServiceImpl;
@@ -68,6 +69,9 @@ public class indexController {
                 }else if(!((UserModel)httpSession.getAttribute("currentUser")).getEmail().equals(userDetails.getUsername())){
                     httpSession.setAttribute("currentUser",user);
                 } 
+                DocumentModel newDocument = new DocumentModel();
+                newDocument.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
+                mav.addObject("newDocument",newDocument);
                 mav.addObject("user",(UserModel)httpSession.getAttribute("currentUser"));
             }else{
                 mav = new ModelAndView();
@@ -76,6 +80,9 @@ public class indexController {
                 mav = new ModelAndView(LOGIN_VEIW);
             else{
                 mav = new ModelAndView(HOME_VEIW);
+                DocumentModel newDocument = new DocumentModel();
+                newDocument.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
+                mav.addObject("newDocument",newDocument);
                 mav.addObject("user",(UserModel)httpSession.getAttribute("currentUser"));
             }
         
@@ -91,7 +98,11 @@ public class indexController {
             if(userService.existUser(cookie)){
                 mav = new ModelAndView(HOME_VEIW);
                 userService.loadUserByUsername(cookie);
-                mav.addObject("user",userService.getUser(cookie));
+                DocumentModel newDocument = new DocumentModel();
+                UserModel cModelUser = userService.getUser(cookie);
+                newDocument.setAuthor(cModelUser);
+                mav.addObject("newDocument",newDocument);
+                mav.addObject("user",cModelUser);
             }else{
                 mav = new ModelAndView(REG_VEIW);
                 mav.addObject("user", new UserModel());

@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -24,7 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Caracteristicas")
-public class Feature {
+public class Feature implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="id_Caracteristica",nullable=false,unique=true)

@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class DocumentModel {
     private int id;
     private String title;
-    private String descripion;  
+    private String description;  
     private UserModel author;
     private Map<Integer,PermissionModel> permissions; // Integer = id_User
     private Map<Integer,FeatureModel> features; // Integer = id_Feature
@@ -25,18 +25,18 @@ public class DocumentModel {
         this.features = new HashMap<>();
     }
     
-    public DocumentModel(String title, String descripion, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
+    public DocumentModel(String title, String description, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
         this.title = title;
-        this.descripion = descripion;
+        this.description = description;
         this.author = author;
         this.permissions = permissions;
         this.features = features;
     }
 
-    public DocumentModel(int id, String title, String descripion, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
+    public DocumentModel(int id, String title, String description, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
         this.id = id;
         this.title = title;
-        this.descripion = descripion;
+        this.description = description;
         this.author = author;
         this.permissions = permissions;
         this.features = features;
@@ -58,12 +58,12 @@ public class DocumentModel {
         this.title = title;
     }
 
-    public String getDescripion() {
-        return this.descripion;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setDescripion(String descripion) {
-        this.descripion = descripion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public UserModel getAuthor() {

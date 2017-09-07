@@ -5811,3 +5811,6 @@ right: -1px;
     font-size: 44px;
     color: #5858FA;
 }
+textarea {
+    resize: none;
+}

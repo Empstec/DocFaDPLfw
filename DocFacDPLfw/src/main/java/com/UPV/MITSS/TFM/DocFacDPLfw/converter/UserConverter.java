@@ -5,8 +5,11 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.converter;
 
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Content;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 /**
@@ -15,10 +18,14 @@ import org.springframework.stereotype.Component;
  */
 @Component("userConverter")
 public class UserConverter {
+    @Autowired
+    @Qualifier("contentConverter")
+    private ContentConverter contetnConverter;
     
     // Entity to Model (M2E)
-    public UserModel convertUserentity2Usermodel(User user){
+    public UserModel convertEntity2Model(User user){
         UserModel userModel = new UserModel();
+        userModel.setId(user.getId_usuario());
         userModel.setName(user.getName());
         userModel.setSurname(user.getSurname());
         userModel.setEmail(user.getEmail());
@@ -31,26 +38,30 @@ public class UserConverter {
         userModel.setTown(user.getTown());
         userModel.setAddress(user.getAddress());
         userModel.setSex(user.getSex());
-        userModel.setId(user.getId_usuario());
+        /*for(Content content : user.getContent()){
+            userModel.setContent(content.getId_contenido(),contetnConverter.convertEntity2Model(content));
+        }*/
+        
         return userModel;
     }
     
     // Model to Entity (E2M)
-    public User convertUsermodel2Userentity(UserModel userModel){
-        User user = new User();
-        user.setName(userModel.getName());
-        user.setSurname(userModel.getSurname());
-        user.setEmail(userModel.getEmail());
-        user.setPassword(userModel.getPassword());
-        user.setRole(userModel.getRole());
-        user.setCompany(userModel.getCompany());
-        user.setDepartment(userModel.getDepartment());
-        user.setState(userModel.getState());
-        user.setProvince(userModel.getProvince());
-        user.setTown(userModel.getTown());
-        user.setAddress(userModel.getAddress());
-        user.setSex(userModel.getSex());
-        user.setId_usuario(userModel.getId());
-        return user;
+    public User convertModel2Entity(UserModel user){
+        User userEntity = new User();
+        userEntity.setId_usuario(user.getId());
+        userEntity.setName(user.getName());
+        userEntity.setSurname(user.getSurname());
+        userEntity.setEmail(user.getEmail());
+        userEntity.setPassword(user.getPassword());
+        userEntity.setRole(user.getRole());
+        userEntity.setCompany(user.getCompany());
+        userEntity.setDepartment(user.getDepartment());
+        userEntity.setState(user.getState());
+        userEntity.setProvince(user.getProvince());
+        userEntity.setTown(user.getTown());
+        userEntity.setAddress(user.getAddress());
+        userEntity.setSex(user.getSex());
+        
+        return userEntity;
     }
 }

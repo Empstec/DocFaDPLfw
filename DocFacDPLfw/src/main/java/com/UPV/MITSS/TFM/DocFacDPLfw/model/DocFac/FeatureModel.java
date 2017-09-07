@@ -33,7 +33,7 @@ public class FeatureModel {
     private Map<Integer,IncompatibilityModel> incompatibilities; // Integer = id_Feature destiny
     private Map<String,RelationModel> relations; // String = id_Relation+TypeRelactio -> "id;type"
     
-    private FeatureModel(){}
+    public FeatureModel(){}
     
     public FeatureModel(int id, boolean root,DocumentModel document ,String name, FeatureModel prev, FeatureModel post, Map<Integer, PropertyModel> properties, Map<Integer, RequirementModel> requirements, Map<Integer, IncompatibilityModel> incompatibilities, Map<String, RelationModel> relations) {
         this.id = id;

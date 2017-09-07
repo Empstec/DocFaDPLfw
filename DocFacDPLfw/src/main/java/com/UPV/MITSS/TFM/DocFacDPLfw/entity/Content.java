@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -25,7 +26,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Contenidos")
-public class Content {
+public class Content implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="id_Contenido",nullable=false,unique=true)

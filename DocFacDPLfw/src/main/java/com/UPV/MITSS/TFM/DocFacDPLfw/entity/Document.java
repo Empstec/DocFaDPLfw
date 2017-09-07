@@ -5,8 +5,10 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +26,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="Documentos")
-public class Document {
+public class Document implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="id_Documento",nullable=false,unique=true)
@@ -36,8 +38,8 @@ public class Document {
     @Column(name="descripcion")
     private String description;
     
-    @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="Autor",nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="autor",nullable = false)
     private User author;
     
     @OneToMany(fetch = FetchType.EAGER,mappedBy="document")

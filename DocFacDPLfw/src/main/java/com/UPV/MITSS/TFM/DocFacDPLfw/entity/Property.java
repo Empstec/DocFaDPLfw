@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Propiedades")
-public class Property {
+public class Property implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="id_Propiedad",nullable=false,unique=true)

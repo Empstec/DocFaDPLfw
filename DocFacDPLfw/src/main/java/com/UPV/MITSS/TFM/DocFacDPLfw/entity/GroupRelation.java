@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="grupo_relaciones")
-public class GroupRelation {
+public class GroupRelation implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="id_Relacion")

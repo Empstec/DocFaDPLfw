@@ -75,7 +75,7 @@
                                     <p class="form-title">Detalles personales</p>
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.toekn}" />
                                     <input type="hidden" th:field="*{id}" value="*{id}" />
-                                    <label>Nobre</label>
+                                    <label>Nombre</label>
                                     <div th:if="${#fields.hasErrors('name')}" th:errors='*{name}' class="alert alert-danger registration-errors" role="alert">Campo obligatorio</div>
                                     <input th:field="*{name}" type="text" class="form-control" placeholder="Nombre" autofocus=""/>
                                     <label>Apellidos</label>

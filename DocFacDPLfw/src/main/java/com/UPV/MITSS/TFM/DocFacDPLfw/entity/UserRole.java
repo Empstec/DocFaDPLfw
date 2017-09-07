@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +22,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(name="Roles_Usuario",uniqueConstraints=@UniqueConstraint(columnNames={"rol","id_Usuario"}))
-public class UserRole {
+public class UserRole implements Serializable {
     
     @Id
     @GeneratedValue

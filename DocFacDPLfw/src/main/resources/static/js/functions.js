@@ -1,4 +1,5 @@
-$(document).on("click","#saveDoc",function(){
+// Preestiu
+/*$(document).on("click","#saveDoc",function(){
     $('input.infDoc').each(function() {
         $("<span />", { text: this.value, "class":"view" }).insertAfter(this);
         $(this).hide();
@@ -33,4 +34,4 @@ $(document).on("click","#saveAll",function(){
         }
     });
     
-});
+});*/

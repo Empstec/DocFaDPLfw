@@ -5,7 +5,9 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
+import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
+import com.UPV.MITSS.TFM.DocFacDPLfw.service.DocumentService;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -34,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class appController {
     
     public static final String HOME_VEIW = "home";
+    public static final String WRITE_VEIW = "write";
     public static final String CREATE_VEIW = "create";
     public static final String PROFILE_VEIW = "profile";
     
@@ -43,6 +46,10 @@ public class appController {
     @Autowired
     @Qualifier("userServiceImpl")
     private UserService userService;
+    
+    @Autowired
+    @Qualifier("documentServiceImpl")
+    private DocumentService documentService;
     
     @GetMapping("/")
     public ModelAndView loginValidate(@CookieValue(value="rememberme", required=false) String cookie){
@@ -63,14 +70,16 @@ public class appController {
             httpSession.setAttribute("currentUser", cModelUser);
         
         mav.addObject("user",cModelUser);
+        DocumentModel newDocument = new DocumentModel();
+        newDocument.setAuthor(cModelUser);
+        mav.addObject("newDocument",newDocument);
         
         return mav;
     }
     
-    @GetMapping("/create")
+    @GetMapping("/write")
     public ModelAndView createDocument(){
-        ModelAndView mav = new ModelAndView(CREATE_VEIW);
-        
+        ModelAndView mav = new ModelAndView(WRITE_VEIW);
         return mav;
     }
     
@@ -102,6 +111,17 @@ public class appController {
             }
             httpSession.setAttribute("currentUser",userService.updateUser(user));
         }
+        return mav;
+    }
+    
+    @PostMapping("/saveDocument")
+    public ModelAndView saveCreateDocuemnt(@ModelAttribute("newDocument") DocumentModel document){
+        ModelAndView mav = new ModelAndView(CREATE_VEIW);
+        
+        document.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
+
+        DocumentModel newDocument = documentService.addDocument(document);
+        ((UserModel)httpSession.getAttribute("currentUser")).setDocument(newDocument.getId(), newDocument);
         return mav;
     }
 }

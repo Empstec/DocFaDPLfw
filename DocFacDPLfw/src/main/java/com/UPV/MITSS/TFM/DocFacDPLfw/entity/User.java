@@ -5,8 +5,10 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="Usuarios")
-public class User {
+public class User implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="id_Usuario",nullable=false,unique=true)
@@ -69,10 +71,10 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
     private Set<Content> contents = new HashSet<Content>();
     
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="user")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
     private Set<Permission> permissions = new HashSet<Permission>();
     
-    @OneToMany(fetch = FetchType.LAZY,mappedBy="author")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="author")
     private Set<Document> documents = new HashSet<Document>();
     
     public User(){}
