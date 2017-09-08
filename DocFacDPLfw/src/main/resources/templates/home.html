@@ -107,13 +107,15 @@
           </div>
           <div class="modal-body">
                 <label>Título</label>
-                <input type="text" th:field="*{title}" class="form-control" placeholder="Título"/>
+                <div th:if="${#fields.hasErrors('title')}" th:errors='*{title}' class="alert alert-danger registration-errors" role="alert">No puede estar vacío</div>
+                <div class="alert alert-danger title-error" role="alert">No puede estar vacío</div>
+                <input type="text" id="titleNewDocument" th:field="*{title}" class="form-control" placeholder="Título"/>
                 <label>Descripción</label>
                 <textarea class="form-control" th:field="*{description}" placeholder="Descripción"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-            <input type="submit" class="btn btn-primary" id="saveDocument" value="Guardar"/>
+            <input type="submit" class="btn btn-primary"  value="Guardar"/>
           </div>
         </div>
     </form>

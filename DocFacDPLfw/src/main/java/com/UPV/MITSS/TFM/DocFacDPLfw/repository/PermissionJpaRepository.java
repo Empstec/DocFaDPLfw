@@ -18,7 +18,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("permissionJpaRepository")
 public interface PermissionJpaRepository extends JpaRepository<Permission,Serializable>{
-    public abstract Permission findOneByIdDocumentAndIdUser(Document document, User user);
-    public abstract Permission findOneByIdDocumentAndIdUser(int document, int user);
-    
+    public abstract Permission findOneByDocumentAndUser(Document document, User user);
 }

@@ -46,8 +46,10 @@ public class DocumentServiceImpl implements DocumentService{
     public DocumentModel addDocument(DocumentModel document) {
         com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document documentEntity = converter.convertModel2Entity(document);
         DocumentModel documentReturn = converter.convertEntity2Model(documentJpaRepository.save(documentEntity)); 
+        // Add permission to entity document and return
         documentEntity.setId_documento(documentReturn.getId());
         permissionJpaRepository.save(new Permission(documentEntity, documentEntity.getAuthor(), "RW"));
+
         return documentReturn;
     }
 

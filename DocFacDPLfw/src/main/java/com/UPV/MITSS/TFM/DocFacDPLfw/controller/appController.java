@@ -115,13 +115,19 @@ public class appController {
     }
     
     @PostMapping("/saveDocument")
-    public ModelAndView saveCreateDocuemnt(@ModelAttribute("newDocument") DocumentModel document){
-        ModelAndView mav = new ModelAndView(CREATE_VEIW);
+    public ModelAndView saveCreateDocuemnt(@Valid @ModelAttribute("newDocument") DocumentModel document, BindingResult bindingResult){
+        ModelAndView mav = new ModelAndView();
         
-        document.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
-
-        DocumentModel newDocument = documentService.addDocument(document);
-        ((UserModel)httpSession.getAttribute("currentUser")).setDocument(newDocument.getId(), newDocument);
+        if(!bindingResult.hasErrors()){
+            document.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
+            DocumentModel newDocument = documentService.addDocument(document);
+            ((UserModel)httpSession.getAttribute("currentUser")).setDocument(newDocument.getId(), newDocument);
+            mav.setViewName(CREATE_VEIW);
+        }else{
+            mav.addObject("user", (UserModel)httpSession.getAttribute("currentUser"));
+            mav.setViewName(HOME_VEIW);
+        }
+        
         return mav;
     }
 }

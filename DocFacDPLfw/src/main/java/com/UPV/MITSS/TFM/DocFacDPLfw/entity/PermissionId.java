@@ -8,13 +8,18 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author S
  */
+@Embeddable
 public class PermissionId implements Serializable{
+    @Column(name = "id_documento")
     private Integer id_documento;
+    
+    @Column(name = "id_usuario")
     private Integer id_usuario;
 
     public PermissionId(){}

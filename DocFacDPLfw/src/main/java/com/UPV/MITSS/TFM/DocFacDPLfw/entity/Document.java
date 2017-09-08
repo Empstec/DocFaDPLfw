@@ -42,7 +42,7 @@ public class Document implements Serializable {
     @JoinColumn(name="autor",nullable = false)
     private User author;
     
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="document")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="document",cascade = CascadeType.ALL)
     private Set<Permission> permissions = new HashSet<Permission>();
     
     @OneToMany(fetch = FetchType.EAGER,mappedBy="document")

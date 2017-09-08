@@ -1,3 +1,10 @@
+$("#createDocument").submit(function( event ) {
+    if($("#titleNewDocument").val()!=="" ){
+        return;
+    }
+    $(".title-error").show();
+    event.preventDefault();
+});
 // Preestiu
 /*$(document).on("click","#saveDoc",function(){
     $('input.infDoc').each(function() {

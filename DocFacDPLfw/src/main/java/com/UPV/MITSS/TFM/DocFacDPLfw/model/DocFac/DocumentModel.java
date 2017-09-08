@@ -7,6 +7,7 @@ package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
 import java.util.Map;
 import java.util.HashMap;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -14,6 +15,8 @@ import java.util.HashMap;
  */
 public class DocumentModel {
     private int id;
+    
+    @NotBlank
     private String title;
     private String description;  
     private UserModel author;
