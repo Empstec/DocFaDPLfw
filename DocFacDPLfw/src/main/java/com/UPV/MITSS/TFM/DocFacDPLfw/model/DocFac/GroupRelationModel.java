@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 public class GroupRelationModel extends RelationModel{
     private FeatureModel destinyGroup;
-    private Map<Integer,DirectRelationModel> relations; // Integer = id_Direct_Relation
+    private Map<Integer,DirectRelationModel> relations = new HashMap<>(); // Integer = id_Direct_Relation
 
     public GroupRelationModel() {
         super();

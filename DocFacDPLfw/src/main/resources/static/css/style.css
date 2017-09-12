@@ -159,7 +159,7 @@ a,a:hover,a:focus {
 }
 
 .leftside-navigation{
-    padding: 70px 0px 0px 15px;
+    padding: 80px 0px 0px 15px;
 
 }
 
@@ -5740,7 +5740,7 @@ right: -1px;
     -moz-border-radius: 0 100% 0 0;
     -webkit-border-radius: 0 100% 0 0;
     border-radius: 0 0 0 100%;
-    margin-top: 50px;
+    margin-top: 80px;
 }
 
 .hide-btn:hover{
@@ -5817,4 +5817,8 @@ textarea {
 
 .title-error{
     display:none;
+}
+
+.left-open{
+    margin-left: 360px;   
 }

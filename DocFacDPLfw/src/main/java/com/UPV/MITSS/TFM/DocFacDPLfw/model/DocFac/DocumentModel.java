@@ -15,13 +15,12 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class DocumentModel {
     private int id;
-    
     @NotBlank
     private String title;
     private String description;  
     private UserModel author;
-    private Map<Integer,PermissionModel> permissions; // Integer = id_User
-    private Map<Integer,FeatureModel> features; // Integer = id_Feature
+    private Map<Integer,PermissionModel> permissions = new HashMap<>(); // Integer = id_User
+    private Map<Integer,FeatureModel> features = new HashMap<>(); // Integer = id_Feature
 
     public DocumentModel(){
         this.permissions = new HashMap<>();

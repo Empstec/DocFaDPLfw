@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
+import java.util.HashMap;
 import java.util.Map;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Email;
@@ -42,9 +43,9 @@ public class UserModel {
     private String town;
     private String address;
     private String remember;
-    private Map<Integer,DocumentModel> documents; // Integer = id_Document
-    private Map<Integer,ContentModel> contents; // Integer = id_Content
-    private Map<Integer,PermissionModel> permissions; // Integer = id_Document
+    private Map<Integer,DocumentModel> documents = new HashMap<>(); // Integer = id_Document
+    private Map<Integer,ContentModel> contents = new HashMap<>(); // Integer = id_Content
+    private Map<Integer,PermissionModel> permissions = new HashMap<>(); // Integer = id_Document
     
     public UserModel(){}
     

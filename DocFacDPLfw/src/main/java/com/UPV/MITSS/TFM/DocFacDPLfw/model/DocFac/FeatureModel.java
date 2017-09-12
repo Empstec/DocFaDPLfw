@@ -28,10 +28,10 @@ public class FeatureModel {
     private String name;
     private FeatureModel prev;
     private FeatureModel post;
-    private Map<Integer,PropertyModel> properties; // Ingeger = id_Property
-    private Map<Integer,RequirementModel> requirements; // Integer = id_Feature destiny
-    private Map<Integer,IncompatibilityModel> incompatibilities; // Integer = id_Feature destiny
-    private Map<String,RelationModel> relations; // String = id_Relation+TypeRelactio -> "id;type"
+    private Map<Integer,PropertyModel> properties = new HashMap<>(); // Ingeger = id_Property
+    private Map<Integer,RequirementModel> requirements = new HashMap<>(); // Integer = id_Feature destiny
+    private Map<Integer,IncompatibilityModel> incompatibilities = new HashMap<>(); // Integer = id_Feature destiny
+    private Map<String,RelationModel> relations = new HashMap<>(); // String = id_Relation+TypeRelactio -> "id;type"
     
     public FeatureModel(){}
     

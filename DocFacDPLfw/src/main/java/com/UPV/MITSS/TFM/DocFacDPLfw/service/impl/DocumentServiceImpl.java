@@ -48,8 +48,9 @@ public class DocumentServiceImpl implements DocumentService{
         DocumentModel documentReturn = converter.convertEntity2Model(documentJpaRepository.save(documentEntity)); 
         // Add permission to entity document and return
         documentEntity.setId_documento(documentReturn.getId());
-        permissionJpaRepository.save(new Permission(documentEntity, documentEntity.getAuthor(), "RW"));
-
+        Permission permission = new Permission(documentEntity, documentEntity.getAuthor(), "RW");
+        permissionJpaRepository.save(permission);
+        //documentReturn.setPermission(0, ); // PermissionEntity to PermissionModel #TO DO
         return documentReturn;
     }
 

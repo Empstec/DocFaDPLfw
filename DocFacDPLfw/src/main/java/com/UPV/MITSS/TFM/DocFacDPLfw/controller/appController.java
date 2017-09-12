@@ -122,6 +122,8 @@ public class appController {
             document.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
             DocumentModel newDocument = documentService.addDocument(document);
             ((UserModel)httpSession.getAttribute("currentUser")).setDocument(newDocument.getId(), newDocument);
+            mav.addObject("user", (UserModel)httpSession.getAttribute("currentUser"));
+            mav.addObject("document", newDocument);
             mav.setViewName(CREATE_VEIW);
         }else{
             mav.addObject("user", (UserModel)httpSession.getAttribute("currentUser"));

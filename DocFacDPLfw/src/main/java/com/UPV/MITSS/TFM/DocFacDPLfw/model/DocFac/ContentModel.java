@@ -5,6 +5,7 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +18,7 @@ public class ContentModel {
     private String typeProperty; // Get value from PropertyModel class
     private String content;
     private String type;
-    private Map<Integer,PropertyModel> properties; // Integer = id_Property
+    private Map<Integer,PropertyModel> properties = new HashMap<>(); // Integer = id_Property
     
     public ContentModel(){};
 
