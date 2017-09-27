@@ -73,7 +73,6 @@ public class appController {
         DocumentModel newDocument = new DocumentModel();
         newDocument.setAuthor(cModelUser);
         mav.addObject("newDocument",newDocument);
-        
         return mav;
     }
     
@@ -99,7 +98,7 @@ public class appController {
             user.setEmail(currentModelUser.getEmail());
             String oldPassSend = user.getPassword().split(",")[0];
             BCryptPasswordEncoder pwd = new BCryptPasswordEncoder();
-            if(pwd.matches(oldPassSend,currentModelUser.getPassword()) && user.getPassword().split(",")[1].length()>0){
+            if(pwd.matches(oldPassSend,currentModelUser.getPassword()) && user.getPassword().split(",").length>1){
                 String newPass = user.getPassword().split(",")[1];
                 if(newPass.length()>50 || newPass.length()<8){
                     bindingResult.rejectValue("password", "error.user","La longitud tiene que estar entre 8 y 50");

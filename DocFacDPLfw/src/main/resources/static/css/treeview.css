@@ -86,7 +86,7 @@
 {
     display: inline-block;
     height: 16px;
-    line-height: 16px;
+    line-height: 12px;
     vertical-align: middle;
 }
  
@@ -101,7 +101,7 @@
     width: 16px;
     margin: 0 22px 0 0;
     vertical-align: middle;
-    background-position: 0 -32px;
+    background-position: 0 -64px;
     
 }
 .css-treeview label
@@ -112,7 +112,7 @@
 
 .css-treeview input:checked + label::before
 {
-    background-position: 0 -16px;
+    background-position: 0 -48px;
 }
  
 /* webkit adjacent element selector bugfix */

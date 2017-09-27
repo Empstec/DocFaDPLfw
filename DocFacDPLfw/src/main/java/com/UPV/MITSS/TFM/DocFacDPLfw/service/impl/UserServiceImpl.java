@@ -104,6 +104,6 @@ public class UserServiceImpl implements UserService,UserDetailsService{
 
     @Override
     public UserModel getUser(String email) {
-        return converter.convertEntity2Model(userJpaRepository.findOneByEmail(email));
+        return converter.fullConvertEntity2Model(userJpaRepository.findOneByEmail(email));
     }
 }
