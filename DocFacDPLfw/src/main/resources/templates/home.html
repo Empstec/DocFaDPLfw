@@ -75,8 +75,8 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-2 home-element">
-                            <a>
+                        <div class="col-md-2 home-element" th:each="document : ${documents}">
+                            <a th:href="@{${document.id}}">
                                 <div class="document-element">
                                     <i class="fa fa-book document-icon"></i>
                                 </div>

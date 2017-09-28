@@ -57,34 +57,11 @@ public class indexController {
     public ModelAndView index(@RequestParam(name="error",required=false) String error,
             @CookieValue(value="rememberme",required=false) String cookie){
         
-        ModelAndView mav;
-        UserModel user;
-        if(cookie != null){
-            if(userService.existUser(cookie)){
-                mav = new ModelAndView(HOME_VEIW);
-                UserDetails userDetails = userService.loadUserByUsername(cookie);
-                user = userService.getUser(cookie);
-                if(httpSession.getAttribute("currentUser")==null){
-                    httpSession.setAttribute("currentUser",user);
-                }else if(!((UserModel)httpSession.getAttribute("currentUser")).getEmail().equals(userDetails.getUsername())){
-                    httpSession.setAttribute("currentUser",user);
-                } 
-                DocumentModel newDocument = new DocumentModel();
-                newDocument.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
-                mav.addObject("newDocument",newDocument);
-                mav.addObject("user",(UserModel)httpSession.getAttribute("currentUser"));
-            }else{
-                mav = new ModelAndView();
-            }
-        }else if(httpSession.getAttribute("currentUser")==null)
-                mav = new ModelAndView(LOGIN_VEIW);
-            else{
-                mav = new ModelAndView(HOME_VEIW);
-                DocumentModel newDocument = new DocumentModel();
-                newDocument.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
-                mav.addObject("newDocument",newDocument);
-                mav.addObject("user",(UserModel)httpSession.getAttribute("currentUser"));
-            }
+        ModelAndView mav = new ModelAndView(LOGIN_VEIW);
+        
+        if(cookie != null || httpSession.getAttribute("currentUser")!=null){
+            return new ModelAndView("forward:/home");
+        }
         
         mav.addObject("error", error);
         
@@ -93,23 +70,11 @@ public class indexController {
     
     @GetMapping("/registration")
     public ModelAndView registration(@CookieValue(value="rememberme",required=false) String cookie){
-        ModelAndView mav;
-        if(cookie != null){
-            if(userService.existUser(cookie)){
-                mav = new ModelAndView(HOME_VEIW);
-                userService.loadUserByUsername(cookie);
-                DocumentModel newDocument = new DocumentModel();
-                UserModel cModelUser = userService.getUser(cookie);
-                newDocument.setAuthor(cModelUser);
-                mav.addObject("newDocument",newDocument);
-                mav.addObject("user",cModelUser);
-            }else{
-                mav = new ModelAndView(REG_VEIW);
-                mav.addObject("user", new UserModel());
-            }
-        }else{
-            mav = new ModelAndView(REG_VEIW);
-            mav.addObject("user", new UserModel());
+        ModelAndView mav = new ModelAndView(REG_VEIW);
+        mav.addObject("user", new UserModel());
+        
+        if(cookie != null || httpSession.getAttribute("currentUser")!=null){
+            return new ModelAndView("forward:/home");
         }
         
         return mav;

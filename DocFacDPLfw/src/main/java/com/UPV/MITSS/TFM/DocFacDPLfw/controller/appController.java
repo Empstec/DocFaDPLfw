@@ -9,6 +9,11 @@ import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.DocumentService;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +78,18 @@ public class appController {
         DocumentModel newDocument = new DocumentModel();
         newDocument.setAuthor(cModelUser);
         mav.addObject("newDocument",newDocument);
+        
+        // Sorted list for viee
+        SortedSet<Integer> sortedKeys = new TreeSet<>(cModelUser.getDocuments().keySet());
+        List<DocumentModel> documents = new ArrayList<>();  
+        
+        // Make sorted list
+        sortedKeys.forEach((key) -> {
+            documents.add(cModelUser.getDocuments().get(key));
+        });
+        Collections.reverse(documents); // Revers the order
+        mav.addObject("documents",documents);
+        
         return mav;
     }
     
