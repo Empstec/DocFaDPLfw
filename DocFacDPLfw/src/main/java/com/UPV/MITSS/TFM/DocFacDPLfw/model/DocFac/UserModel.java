@@ -251,4 +251,9 @@ public class UserModel {
     public PermissionModel getPermission(int id){
         return this.permissions.get(id);
     }
+    
+    public void deleteDocument(int idDocument){
+        this.permissions.remove(idDocument);
+        this.documents.remove(idDocument);
+    }
 }

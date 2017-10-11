@@ -6,6 +6,7 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -18,10 +19,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author S
+ * @author Salvador Puertes Aleixandre
  */
 
 @Entity
@@ -38,29 +41,43 @@ public class Document implements Serializable {
     @Column(name="descripcion")
     private String description;
     
+    @Column(name="fch_creacion",columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creation;
+    
+    @Column(name="fch_modificacion",columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastEdition;
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="autor",nullable = false)
     private User author;
     
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="document",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="document")
     private Set<Permission> permissions = new HashSet<Permission>();
     
     @OneToMany(fetch = FetchType.EAGER,mappedBy="document")
     private Set<Feature> features = new HashSet<Feature>();
     
-    public Document(){};
+    public Document(){
+        this.creation = new Date();
+    };
 
-    public Document(int id_documento, String title, String description, User author) {
+    public Document(int id_documento, String title, String description, Date creation, Date lastEdition, User author) {
         this.id_documento = id_documento;
         this.title = title;
         this.description = description;
+        this.creation = creation;
+        this.lastEdition = lastEdition;
         this.author = author;
     }
     
-    public Document(int id_documento, String title, String description, User author,Set<Permission> permissions, Set<Feature> features) {
+    public Document(int id_documento, String title, String description,  Date creation, Date lastEdition, User author,Set<Permission> permissions, Set<Feature> features) {
         this.id_documento = id_documento;
         this.title = title;
         this.description = description;
+        this.creation = creation;
+        this.lastEdition = lastEdition;
         this.author = author;
         this.permissions = permissions;
         this.features = features;
@@ -88,6 +105,22 @@ public class Document implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreation() {
+        return creation;
+    }
+
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
+
+    public Date getLastEdition() {
+        return lastEdition;
+    }
+
+    public void setLastEdition(Date lastEdition) {
+        this.lastEdition = lastEdition;
     }
 
     public User getAuthor() {

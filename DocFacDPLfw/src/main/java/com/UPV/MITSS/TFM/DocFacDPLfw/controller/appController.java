@@ -9,6 +9,7 @@ import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.DocumentService;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,6 +62,8 @@ public class appController {
         ModelAndView mav = new ModelAndView(HOME_VEIW);
         
         UserModel cModelUser;
+        DocumentModel newDocument = new DocumentModel();
+        String jsonDocuments = "{";
         
         if(cookie == null){
             User currentUser = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // Usuario Actual
@@ -75,21 +78,23 @@ public class appController {
             httpSession.setAttribute("currentUser", cModelUser);
         
         mav.addObject("user",cModelUser);
-        DocumentModel newDocument = new DocumentModel();
         newDocument.setAuthor(cModelUser);
         mav.addObject("newDocument",newDocument);
         
         // Sorted list for viee
         SortedSet<Integer> sortedKeys = new TreeSet<>(cModelUser.getDocuments().keySet());
-        List<DocumentModel> documents = new ArrayList<>();  
+        List<DocumentModel> documents = new ArrayList<>();
         
         // Make sorted list
-        sortedKeys.forEach((key) -> {
+        jsonDocuments = sortedKeys.stream().map((key) -> {
             documents.add(cModelUser.getDocuments().get(key));
-        });
+            return key;
+        }).map((key) -> cModelUser.getDocuments().get(key).toJSON()+",").reduce(jsonDocuments, String::concat);
+        jsonDocuments = jsonDocuments.substring(0,jsonDocuments.length()-1)+"}";
+        
         Collections.reverse(documents); // Revers the order
         mav.addObject("documents",documents);
-        
+        mav.addObject("jsonDocuments",jsonDocuments); // Document's JSON List
         return mav;
     }
     
@@ -133,7 +138,6 @@ public class appController {
     @PostMapping("/saveDocument")
     public ModelAndView saveCreateDocuemnt(@Valid @ModelAttribute("newDocument") DocumentModel document, BindingResult bindingResult){
         ModelAndView mav = new ModelAndView();
-        
         if(!bindingResult.hasErrors()){
             document.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
             DocumentModel newDocument = documentService.addDocument(document);

@@ -26,12 +26,12 @@ public class Permission implements Serializable{
     private PermissionId primarykey;
     
     @MapsId(value="id_documento")
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_Documento",nullable = false)
     private Document document;
     
     @MapsId(value="id_usuario")
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="id_Usuario",nullable = false)
     private User user;
     

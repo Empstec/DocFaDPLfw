@@ -5,8 +5,6 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.controller;
 
-import static com.UPV.MITSS.TFM.DocFacDPLfw.controller.appController.HOME_VEIW;
-import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.RememberMeServicesImpl;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.impl.UserServiceImpl;
@@ -18,7 +16,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;

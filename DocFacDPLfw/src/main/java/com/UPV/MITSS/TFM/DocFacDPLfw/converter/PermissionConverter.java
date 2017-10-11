@@ -32,7 +32,7 @@ public class PermissionConverter {
     public PermissionModel convertEntity2Model(Permission permission){
         PermissionModel permissionModel = new PermissionModel();
         
-        permissionModel.serPermissions(permission.getPermissions());
+        permissionModel.setPermissions(permission.getPermissions());
         
         return permissionModel;
     }

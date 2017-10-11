@@ -116,7 +116,7 @@ public class PermissionModel {
         this.user = user;
     }
     
-    public void serPermissions(String permissions){
+    public void setPermissions(String permissions){
         if(permissions.length()>=1 && permissions.length()<=2){
             permissions = permissions.toUpperCase();
             this.read = permissions.contains("R");

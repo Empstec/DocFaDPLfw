@@ -6,24 +6,30 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.service.impl;
 
 import com.UPV.MITSS.TFM.DocFacDPLfw.converter.DocumentConverter;
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Permission;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.DocumentJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.PermissionJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.DocumentService;
+import com.UPV.MITSS.TFM.DocFacDPLfw.service.PermissionService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author S
+ * @author Salvador Puertes Aleixandre
  */
 @Service("documentServiceImpl")
 public class DocumentServiceImpl implements DocumentService{
 
+    @Autowired
+    private HttpSession httpSession;
+    
     @Autowired
     @Qualifier("documentJpaRepository")
     private DocumentJpaRepository documentJpaRepository;
@@ -34,7 +40,7 @@ public class DocumentServiceImpl implements DocumentService{
     
     @Autowired
     @Qualifier("documentConverter")
-    private DocumentConverter converter;
+    private DocumentConverter documentConverter;
     
     @Override
     public List<DocumentModel> listAllUserDocuments(UserModel user) {
@@ -44,25 +50,33 @@ public class DocumentServiceImpl implements DocumentService{
 
     @Override
     public DocumentModel addDocument(DocumentModel document) {
-        com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document documentEntity = converter.convertModel2Entity(document);
-        DocumentModel documentReturn = converter.convertEntity2Model(documentJpaRepository.save(documentEntity)); 
+        com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document documentEntity = documentConverter.convertModel2Entity(document);
+        DocumentModel documentReturn = documentConverter.convertEntity2Model(documentJpaRepository.save(documentEntity)); 
+        
         // Add permission to entity document and return
         documentEntity.setId_documento(documentReturn.getId());
         Permission permission = new Permission(documentEntity, documentEntity.getAuthor(), "RW");
         permissionJpaRepository.save(permission);
-        //documentReturn.setPermission(0, ); // PermissionEntity to PermissionModel #TO DO
         return documentReturn;
     }
 
     @Override
-    public int removeDocument(int id_document) {
-        documentJpaRepository.delete(id_document);
-        return 0;
+    public DocumentModel updateDocument(DocumentModel document) {
+        return documentConverter.convertEntity2Model(documentJpaRepository.save(documentConverter.convertModel2Entity(document)));
+    }    
+
+    @Override
+    public Document findDocumentById(int id) {
+        return documentJpaRepository.findOne(id);
     }
 
     @Override
-    public DocumentModel updateDocument(DocumentModel document) {
-        return converter.convertEntity2Model(documentJpaRepository.save(converter.convertModel2Entity(document)));
+    public void removeDocument(int id) {
+        UserModel user = (UserModel)httpSession.getAttribute("currentUser"); 
+        if(user.getDocument(id) != null){
+            permissionJpaRepository.delete(this.findDocumentById(id).getPermissions().iterator().next());
+            documentJpaRepository.delete(this.findDocumentById(id));
+            user.deleteDocument(id);
+        }
     }
-    
 }

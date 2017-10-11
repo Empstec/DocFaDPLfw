@@ -71,7 +71,7 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
     private Set<Content> contents = new HashSet<Content>();
     
-    @OneToMany(fetch = FetchType.EAGER,mappedBy="user",cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy="user")
     private Set<Permission> permissions = new HashSet<Permission>();
     
     @OneToMany(fetch = FetchType.EAGER,mappedBy="author")

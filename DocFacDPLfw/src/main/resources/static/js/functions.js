@@ -1,3 +1,5 @@
+/* global selected, documents */
+
 $("#createDocument").submit(function( event ) {
     if($("#titleNewDocument").val()!=="" ){
         return;
@@ -5,40 +7,99 @@ $("#createDocument").submit(function( event ) {
     $(".title-error").show();
     event.preventDefault();
 });
-// Preestiu
-/*$(document).on("click","#saveDoc",function(){
-    $('input.infDoc').each(function() {
-        $("<span />", { text: this.value, "class":"view" }).insertAfter(this);
-        $(this).hide();
-    });
-    $(this).hide();
-    $(".tableContent").show();
-});
 
-$(document).on("click","#add",function(){
-    $("#tableContent").children("tbody").append("<tr><td><select class=\"selectType\" data-numberType=\"1\"><option value=\"title\">T&iacute;tulo</option><option value=\"subtitle\">Subt&iacute;tulo</option><option value=\"paragraph\">Texto</option></select></td><td colspan=2><input type=\"text\" class=\"contentDITA\" data-numberContent=\"1\"/></td></tr>");
-});
-
-
-$(document).on("click","#saveAll",function(){
-    elements = {};
-    $(".selectType").each(function(i,value){
-        elements[i]={};
-        elements[i][0] = $(value).val();
-    });
+$("#deleteDocument").submit(function( event ) {
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
     
-    $(".contentDITA").each(function(i,value){
-        elements[i][1] = $(value).val(); 
-    });
+    var header = {};
+    header[csrfHeader] = $("meta[name='_csrf']").attr("content");
+    
+    var data = {
+        "idDocument": selected
+    };
     
     $.ajax({
-        url:'saveDoc',
-        type:'POST',
-        data:{'elements':JSON.stringify(elements),'title':$("#titleDoc").val(),'desc':$("#descDoc").val()},
-        success:function(r){
-            if(r==='true')
-                window.location = "view.jsp";
+        url: "/rest/deleteDocument",
+        type: "POST",
+        contentType : "application/json",
+        dataType : "json",
+        headers: header,
+        data: JSON.stringify(data),
+        success: function(response){ // response = JSON Object 
+            if($.isEmptyObject(response)){
+                // Clean layout and onjects
+                $.notify("BORRADO");
+            }else{
+                // Show error message
+            }
+            
+        },
+        error: function(errorResponse){ // errorResponse = JSON Object 
+            // Show error message
         }
     });
     
-});*/
+    event.preventDefault();
+});
+
+$(document).ready(function(){
+    $('[data-tooltip="tooltip"]').tooltip({trigger:'hover'});
+});
+
+$(document).on("mouseover",".document",function(){
+    var temporal = $(this).find(".document-element").attr("id");
+    
+    if(selected === 0){
+        $("#right-document-info").show();
+        $("#document-title").text(documents[temporal]['title']);
+        
+        if(typeof documents[temporal]['description'] === "undefined"){
+            $("#document-description").removeClass("right-text");
+            $("#document-description").text("none");
+        }else{
+            $("#document-description").addClass("right-text");
+            $("#document-description").text(documents[temporal]['description']);
+        }
+    
+        $("#document-creation").text(documents[temporal]['creation'].split(".")[0]);
+        
+        if(typeof documents[temporal]['lastEdition'] === "undefined"){
+            $("#document-lastEdition").removeClass("right-text");
+            $("#document-lastEdition").text("none");
+        }else{
+            $("#document-lastEdition").addClass("right-text");
+            $("#document-lastEdition").text(documents[temporal]['lastEdition'].split(".")[0]);
+        }
+    }
+});
+
+$(document).on("mouseout",".document",function(){
+    if(selected === 0)
+        $("#right-document-info").hide();
+});
+
+$(document).on("click",".document",function(){
+    selected = $(this).find(".document-element").attr("id");
+    $("#document-title").text(documents[selected]['title']);
+    if(typeof documents[selected]['description'] === "undefined"){
+        $("#document-description").removeClass("right-text");
+        $("#document-description").text("none");
+    }else{
+        $("#document-description").addClass("right-text");
+        $("#document-description").text(documents[selected]['description']);
+    }
+        
+    $("#document-creation").text(documents[selected]['creation'].split(".")[0]);
+        
+    if(typeof documents[selected]['lastEdition'] === "undefined"){
+        $("#document-lastEdition").removeClass("right-text");
+        $("#document-lastEdition").text("none");
+    }else{
+        $("#document-lastEdition").addClass("right-text");
+        $("#document-lastEdition").text(documents[selected]['lastEdition'].split(".")[0]);
+    }
+});
+
+$(document).on("dblclick",".document-element",function(){
+    // Go to document view/editor
+});

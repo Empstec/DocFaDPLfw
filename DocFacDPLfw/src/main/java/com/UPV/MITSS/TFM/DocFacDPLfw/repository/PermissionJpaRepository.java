@@ -6,8 +6,6 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.repository;
 
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Permission;
-import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
-import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document;
 import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,5 +16,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("permissionJpaRepository")
 public interface PermissionJpaRepository extends JpaRepository<Permission,Serializable>{
-    public abstract Permission findOneByDocumentAndUser(Document document, User user);
 }

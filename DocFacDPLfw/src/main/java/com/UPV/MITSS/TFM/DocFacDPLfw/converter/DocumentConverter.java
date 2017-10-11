@@ -42,6 +42,9 @@ public class DocumentConverter {
         documentModel.setId(document.getId_documento());
         documentModel.setTitle(document.getTitle());
         documentModel.setDescription(document.getDescription());
+        documentModel.setCreation(document.getCreation());
+        documentModel.setLastEdition(document.getLastEdition());
+        documentModel.setAuthor(userConverter.convertEntity2Model(document.getAuthor()));
         
         return documentModel;
     }
@@ -53,6 +56,9 @@ public class DocumentConverter {
         documentEntity.setId_documento(document.getId());
         documentEntity.setTitle(document.getTitle());
         documentEntity.setDescription(document.getDescription());
+        documentEntity.setCreation(document.getCreation());
+        documentEntity.setLastEdition(document.getLastEdition());
+        documentEntity.setAuthor(userConverter.convertModel2Entity(document.getAuthor()));
         
         return documentEntity;
     }

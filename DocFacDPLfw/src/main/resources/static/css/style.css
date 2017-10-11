@@ -4667,6 +4667,7 @@ div.tagsinput span.tag {
     padding-top:7px;
     padding-bottom:7px;
     padding-left:15px;
+    padding-right:15px;
 }
 .side-mini-graph {
     float:right;
@@ -5792,43 +5793,48 @@ right: -1px;
 .home-element{
     vertical-align: middle;
     display: table-cell;
-    font-size: 58px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    height: 11vw;
+    padding: 0px 10px !important;
+}
+
+.element-size{
+    height: 100%;
+    width: 100%;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+
+.element-size:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: #F8FFFF;
 }
 
 .document-icon{
+    font-size: 58px;
     vertical-align: middle;
     display: table-cell;
     color: #DF3A01;
 }
 
 .add-document-icon{
+    font-size: 58px;
     vertical-align: middle;
     display: table-cell;
     color: #5858FA;
 }
 .add-document{
     text-align:center;
-    width: 11vw;
-    height: 11vw;
-    border: 1px solid #5858FA;
+    width: 100%;
+    height: 100%;
     display: table;
-}
-
-.add-document:hover{
-    background: #E0F8E6;
 }
 
 .document-element{   
     text-align:center;
-    width: 11vw;
-    height: 11vw;
-    border: 1px solid #9F81F7;
+    width: 100%;
+    height: 8vw;
     display: table;
-}
-
-.document-element:hover{
-    background: #D8F6CE;
 }
 
 textarea {
@@ -5841,4 +5847,34 @@ textarea {
 
 .left-open{
     margin-left: 360px;   
+}
+
+.document-title{
+    line-height: 1.7;
+    font-size: 14px;
+    display: block;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+
+.right-btn{
+    width: 100%;
+    display: inline-block;
+    padding: 10px 15px 0px 15px; 
+}
+
+.default-hide{
+    display: none;
+}
+
+p.right-text{
+    margin-top: 2px;
+    font-size: 12px;
+    color: #F0F8FF;
+    text-align: justify;
+    text-justify: inter-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }

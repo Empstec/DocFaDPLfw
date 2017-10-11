@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac;
-
+    
+import com.UPV.MITSS.TFM.DocFacDPLfw.JSONAdapter.DocumentAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 import org.hibernate.validator.constraints.NotBlank;
@@ -17,28 +21,35 @@ public class DocumentModel {
     private int id;
     @NotBlank
     private String title;
-    private String description;  
+    private String description;
+    private Date creation;
+    private Date lastEdition;
     private UserModel author;
     private Map<Integer,PermissionModel> permissions = new HashMap<>(); // Integer = id_User
     private Map<Integer,FeatureModel> features = new HashMap<>(); // Integer = id_Feature
 
     public DocumentModel(){
+        this.creation = new Date();
         this.permissions = new HashMap<>();
         this.features = new HashMap<>();
     }
     
-    public DocumentModel(String title, String description, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
+    public DocumentModel(String title, String description, Date creation, Date lastEdition, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
         this.title = title;
         this.description = description;
+        this.creation = creation;
+        this.lastEdition = lastEdition;
         this.author = author;
         this.permissions = permissions;
         this.features = features;
     }
 
-    public DocumentModel(int id, String title, String description, UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
+    public DocumentModel(int id, String title, String description, Date creation, Date lastEdition,UserModel author, Map<Integer, PermissionModel> permissions, Map<Integer, FeatureModel> features) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.creation = creation;
+        this.lastEdition = lastEdition;
         this.author = author;
         this.permissions = permissions;
         this.features = features;
@@ -66,6 +77,22 @@ public class DocumentModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreation() {
+        return creation;
+    }
+
+    public void setCreation(Date creation) {
+        this.creation = creation;
+    }
+
+    public Date getLastEdition() {
+        return lastEdition;
+    }
+
+    public void setLastEdition(Date lastEdition) {
+        this.lastEdition = lastEdition;
     }
 
     public UserModel getAuthor() {
@@ -114,5 +141,11 @@ public class DocumentModel {
     
     public PermissionModel getPermission(int id){ // id_Usuario
         return this.permissions.get(id);
+    }
+    
+    public String toJSON(){
+        Gson json = new GsonBuilder().registerTypeAdapter(DocumentModel.class, new DocumentAdapter()).create();
+        
+        return "\""+this.id+"\":"+json.toJson(this);
     }
 }

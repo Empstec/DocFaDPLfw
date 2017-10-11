@@ -5,17 +5,19 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.service;
 
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import java.util.List;
 
 /**
  *
- * @author S
+ * @author SHu
  */
 public interface DocumentService {
     public abstract List<DocumentModel> listAllUserDocuments(UserModel user);
     public abstract DocumentModel addDocument(DocumentModel document);
-    public abstract int removeDocument(int id_document);
     public abstract DocumentModel updateDocument(DocumentModel document);
+    public abstract Document findDocumentById(int id);
+    public abstract void removeDocument(int id);
 }
