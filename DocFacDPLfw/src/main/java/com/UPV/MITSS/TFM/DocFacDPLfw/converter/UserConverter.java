@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author S
+ * @author Salvador Puertes Aleixandre
  */
 @Component("userConverter")
 public class UserConverter {

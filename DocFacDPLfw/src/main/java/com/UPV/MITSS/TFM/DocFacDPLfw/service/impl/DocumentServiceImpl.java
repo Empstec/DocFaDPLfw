@@ -6,6 +6,7 @@
 package com.UPV.MITSS.TFM.DocFacDPLfw.service.impl;
 
 import com.UPV.MITSS.TFM.DocFacDPLfw.converter.DocumentConverter;
+import com.UPV.MITSS.TFM.DocFacDPLfw.converter.PermissionConverter;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Permission;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
@@ -13,7 +14,6 @@ import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.DocumentJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.repository.PermissionJpaRepository;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.DocumentService;
-import com.UPV.MITSS.TFM.DocFacDPLfw.service.PermissionService;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,10 @@ public class DocumentServiceImpl implements DocumentService{
     @Qualifier("documentConverter")
     private DocumentConverter documentConverter;
     
+    @Autowired
+    @Qualifier("permissionConverter")
+    private PermissionConverter permissionConverter;
+    
     @Override
     public List<DocumentModel> listAllUserDocuments(UserModel user) {
         // TO-DO
@@ -51,12 +55,21 @@ public class DocumentServiceImpl implements DocumentService{
     @Override
     public DocumentModel addDocument(DocumentModel document) {
         com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document documentEntity = documentConverter.convertModel2Entity(document);
+        UserModel user = (UserModel)httpSession.getAttribute("currentUser");
         DocumentModel documentReturn = documentConverter.convertEntity2Model(documentJpaRepository.save(documentEntity)); 
         
         // Add permission to entity document and return
         documentEntity.setId_documento(documentReturn.getId());
         Permission permission = new Permission(documentEntity, documentEntity.getAuthor(), "RW");
         permissionJpaRepository.save(permission);
+        
+        // Set Documnet to current user
+        user.setDocument(documentReturn.getId(), documentReturn);
+        
+        //Add PermissionModel to DocumentModel ans UserModel
+        documentReturn.setPermission(user.getId(),permissionConverter.convertEntity2Model(permissionConverter.convertEntity2Model(permission),user,documentReturn));
+        user.setPermission(documentReturn.getId(), documentReturn.getPermission(user.getId()));
+        
         return documentReturn;
     }
 
@@ -73,9 +86,10 @@ public class DocumentServiceImpl implements DocumentService{
     @Override
     public void removeDocument(int id) {
         UserModel user = (UserModel)httpSession.getAttribute("currentUser"); 
-        if(user.getDocument(id) != null){
-            permissionJpaRepository.delete(this.findDocumentById(id).getPermissions().iterator().next());
-            documentJpaRepository.delete(this.findDocumentById(id));
+        DocumentModel document = user.getDocument(id); 
+        if(document != null){
+            permissionJpaRepository.delete(permissionConverter.convertModel2Entity(user.getPermission(id), user, document));
+            documentJpaRepository.delete(documentConverter.convertModel2Entity(document));
             user.deleteDocument(id);
         }
     }

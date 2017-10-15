@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author S
+ * @author Salvador Puertes Aleixandre
  */
 @Repository("documentJpaRepository")
 public interface DocumentJpaRepository extends JpaRepository<Document,Serializable>{

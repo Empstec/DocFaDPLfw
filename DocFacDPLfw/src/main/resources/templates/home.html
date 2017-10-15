@@ -78,7 +78,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-2 home-element " th:each="document : ${documents}">
+                        <div class="col-md-2 home-element" th:each="document : ${documents}">
                             <div class="element-size document" data-tooltip="tooltip" data-placement="bottom" th:title="${document.title}">
                                 <a th:href="@{'/home/document/' + ${document.id}}" onclick="return false">
                                     <div class="document-element" th:id='${document.id}'>
@@ -165,7 +165,7 @@
 <!-- Delete Document -->
 <div id="deleteDocument" class="modal fade" role="dialog">
   <div class="modal-dialog">
-    <form action="#" th:action="@{/rest/deleteDocument}" method="POST" id="formDeleteDocument">
+    <form action="#" method="POST" id="formDeleteDocument">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.toekn}" />
         <!--<input type="hidden" id="deleteDocumentID"/>-->
         <!-- Modal content-->
@@ -197,11 +197,12 @@
 
 <script src="../static/js/base.js" th:src="@{/js/base.js}"></script>
 <script src="../static/js/functions.js" th:src="@{/js/functions.js}"></script>
-<script src="../static/js/bootstrap-notify.min.js" th:src="@{/js/functions.js}"></script>
+<script src="../static/js/bootstrap-notify.min.js" th:src="@{/js/bootstrap-notify.min.js}"></script>
 
 <script th:inline="javascript" type="text/javascript">
     var selected = 0;
     var documents = JSON.parse(/*[[${jsonDocuments}]]*/ '{}');
+    var selectedDocument = {};
 </script>
 
 </body> 

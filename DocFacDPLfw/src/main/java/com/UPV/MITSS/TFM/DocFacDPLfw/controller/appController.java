@@ -86,15 +86,20 @@ public class appController {
         List<DocumentModel> documents = new ArrayList<>();
         
         // Make sorted list
-        jsonDocuments = sortedKeys.stream().map((key) -> {
-            documents.add(cModelUser.getDocuments().get(key));
-            return key;
-        }).map((key) -> cModelUser.getDocuments().get(key).toJSON()+",").reduce(jsonDocuments, String::concat);
-        jsonDocuments = jsonDocuments.substring(0,jsonDocuments.length()-1)+"}";
+        if(!sortedKeys.isEmpty()){
+            jsonDocuments = sortedKeys.stream().map((key) -> {
+                documents.add(cModelUser.getDocuments().get(key));
+                return key;
+            }).map((key) -> cModelUser.getDocuments().get(key).toJSON()+",").reduce(jsonDocuments, String::concat);
+            jsonDocuments = jsonDocuments.substring(0,jsonDocuments.length()-1)+"}";
+        }else
+            jsonDocuments += "}";
+        
         
         Collections.reverse(documents); // Revers the order
         mav.addObject("documents",documents);
         mav.addObject("jsonDocuments",jsonDocuments); // Document's JSON List
+        
         return mav;
     }
     
@@ -141,7 +146,7 @@ public class appController {
         if(!bindingResult.hasErrors()){
             document.setAuthor((UserModel)httpSession.getAttribute("currentUser"));
             DocumentModel newDocument = documentService.addDocument(document);
-            ((UserModel)httpSession.getAttribute("currentUser")).setDocument(newDocument.getId(), newDocument);
+            
             mav.addObject("user", (UserModel)httpSession.getAttribute("currentUser"));
             mav.addObject("document", newDocument);
             mav.setViewName(CREATE_VEIW);

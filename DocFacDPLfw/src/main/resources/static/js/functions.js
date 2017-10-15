@@ -1,4 +1,4 @@
-/* global selected, documents */
+/* global selected, documents, selectedDocument */
 
 $("#createDocument").submit(function( event ) {
     if($("#titleNewDocument").val()!=="" ){
@@ -8,7 +8,10 @@ $("#createDocument").submit(function( event ) {
     event.preventDefault();
 });
 
-$("#deleteDocument").submit(function( event ) {
+$("#formDeleteDocument").submit(function( event ) {
+    
+    event.stopImmediatePropagation();
+    
     var csrfHeader = $("meta[name='_csrf_header']").attr("content");
     
     var header = {};
@@ -27,19 +30,63 @@ $("#deleteDocument").submit(function( event ) {
         data: JSON.stringify(data),
         success: function(response){ // response = JSON Object 
             if($.isEmptyObject(response)){
-                // Clean layout and onjects
-                $.notify("BORRADO");
+                $(selectedDocument).remove();
+                $("#deleteDocument").modal("hide");
+                
+                delete documents[selected]; // Remove element from documents variable
+                selected = 0; // Reset variable
+                $(".document").mouseout();
+                
+                selectedDocument = {};
+                
+                // Ok Message
+                $.notify(
+                        {
+                            message : "Documento eliminado satisfactoriamente",
+                            icon : "fa fa-check-circle-o"
+                        },{
+                            placement : {
+                                align : "center" 
+                            },
+                            delay : 2500,
+                            type : "success",
+                            mouse_over : "pause"
+                        });
             }else{
                 // Show error message
+                $.notify(
+                    {
+                        message : "Error al eliminar el documento",
+                        icon : "fa fa-exclamation-triangle"
+                    },{
+                        placement : {
+                            align : "center" 
+                        },
+                        delay : 2500,
+                        type : "danger",
+                        mouse_over : "pause"
+                    });
             }
-            
         },
         error: function(errorResponse){ // errorResponse = JSON Object 
             // Show error message
+            $.notify(
+                {
+                    message : "Error al eliminar el documento",
+                    icon : "fa fa-exclamation-triangle"
+                },{
+                    placement : {
+                        align : "center" 
+                    },
+                    delay : 2500,
+                    type : "danger",
+                    mouse_over : "pause"
+                });
         }
     });
     
-    event.preventDefault();
+    return false;
+
 });
 
 $(document).ready(function(){
@@ -78,8 +125,13 @@ $(document).on("mouseout",".document",function(){
         $("#right-document-info").hide();
 });
 
-$(document).on("click",".document",function(){
+$(document).on("click",".document",function(event){
+    event.stopImmediatePropagation();
+    
+    selectedDocument = $(this).parent(".home-element");
     selected = $(this).find(".document-element").attr("id");
+    
+    
     $("#document-title").text(documents[selected]['title']);
     if(typeof documents[selected]['description'] === "undefined"){
         $("#document-description").removeClass("right-text");

@@ -5,8 +5,11 @@
  */
 package com.UPV.MITSS.TFM.DocFacDPLfw.converter;
 
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Document;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.Permission;
+import com.UPV.MITSS.TFM.DocFacDPLfw.entity.PermissionId;
 import com.UPV.MITSS.TFM.DocFacDPLfw.entity.User;
+import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.PermissionModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +65,29 @@ public class PermissionConverter {
         permissionEntity.setUser(user);
         
         return permissionEntity;
+    }
+    
+    // Model to Entity (M2E) with User and Documnet
+    public Permission convertModel2Entity(PermissionModel permission, UserModel user, DocumentModel document){
+        Permission permissionEntity = new Permission();
+        
+        permissionEntity.setDocument(documentConverter.convertModel2Entity(document));
+        permissionEntity.setUser(userConverter.convertModel2Entity(user));
+        permissionEntity.setPrimarykey(new PermissionId(document.getId(),user.getId()));
+        permissionEntity.setPermissions(permission.toString());
+        
+        return permissionEntity;
+    }
+    
+    // Model to Entity (E2M) with User and Documnet
+    public PermissionModel convertEntity2Model(PermissionModel permission, UserModel user, DocumentModel document){
+        
+        PermissionModel permissionModel = new PermissionModel();
+        
+        permissionModel.setDoc(document);
+        permissionModel.setUser(user);
+        permissionModel.setPermissions(permission.toString());
+        
+        return permissionModel;
     }
 }
