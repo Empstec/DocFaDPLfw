@@ -1,10 +1,25 @@
 /* global selected, documents, selectedDocument */
 
 $("#createDocument").submit(function( event ) {
-    if($("#titleNewDocument").val()!=="" ){
+    
+    if($("#titleNewDocument").val() === "")
+        $(".title-error").show();
+    else
+        $(".title-error").hide();
+    
+    if($("#titleNewDocument").val().length > 255)
+        $(".title-length-error").show();
+    else
+        $(".title-length-error").hide();
+    
+    if($("#description").val().length > 255)
+        $(".desc-error").show();
+    else
+        $(".desc-error").hide();
+    
+    if($("#description").val().length <= 255 && $("#titleNewDocument").val().length <= 255 && $("#titleNewDocument").val() !== "")
         return;
-    }
-    $(".title-error").show();
+    
     event.preventDefault();
 });
 

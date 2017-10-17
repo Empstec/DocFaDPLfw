@@ -28,10 +28,6 @@ public class DocumentConverter {
     private UserConverter userConverter;
     
     @Autowired
-    @Qualifier("permissionConverter")
-    private PermissionConverter permissionConverter;
-    
-    @Autowired
     @Qualifier("featureConverter")
     private FeatureConverter featureConverter;
     

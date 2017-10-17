@@ -11,6 +11,7 @@ import com.google.gson.GsonBuilder;
 import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -20,7 +21,9 @@ import org.hibernate.validator.constraints.NotBlank;
 public class DocumentModel {
     private int id;
     @NotBlank
+    @Length(max=255)
     private String title;
+    @Length(max=255)
     private String description;
     private Date creation;
     private Date lastEdition;
