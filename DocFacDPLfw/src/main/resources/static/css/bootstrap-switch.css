@@ -20,6 +20,7 @@
  */
 
 .has-switch {
+  margin-bottom: 15px;
   display: inline-block;
   cursor: pointer;
   border-radius: 50px;
@@ -35,7 +36,8 @@
   -o-user-select: none;
   user-select: none;
   vertical-align: middle;
-  min-width: 100px;
+  /*min-width: 200px;*/
+  min-width: 100%;
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
@@ -90,7 +92,7 @@
 }
 .has-switch input[type=radio],
 .has-switch input[type=checkbox] {
-  display: none;
+  display: none !important;
 }
 .has-switch span,
 .has-switch label {
@@ -105,6 +107,7 @@
   padding-top: 4px;
   font-size: 14px;
   line-height: 20px;
+  vertical-align: middle;
 }
 .has-switch span.switch-mini,
 .has-switch label.switch-mini {
@@ -129,8 +132,8 @@
 }
 .has-switch label {
   text-align: center;
-  margin-top: -1px;
-  margin-bottom: -1px;
+  margin-top: -1px !important;
+  margin-bottom: -1px !important;
   z-index: 100;
   width: 34%;
   background: #ffffff;
@@ -180,4 +183,20 @@
 .has-switch span.switch-default {
   color: #000;
   background: #eeeeee;
+}
+
+.switch-male{
+  color: #fff !important;
+  font-weight: 700;
+  background: #0431B4 !important;
+}
+
+.switch-female{
+  color: #fff !important;
+  font-weight: 700;
+  background: #FD4141 !important;
+}
+
+.sex-separation{
+    margin-bottom: 20px;
 }

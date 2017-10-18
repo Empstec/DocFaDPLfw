@@ -16,8 +16,6 @@
     <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" media="screen"/>
     <link href="/css/bootstrap-reset.css" th:href="@{/css/bootstrap-reset.css}" rel="stylesheet" media="screen"/>
     <link href="/font-awesome/css/font-awesome.css" th:href="@{/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen"/>
-    <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet" media="screen"/>
-    <link href="/css/treeview.css" th:href="@{/css/treeview.css}" rel="stylesheet" media="screen"/>
     <link href="/css/jquery.steps.css?1" th:href="@{/css/jquery.steps.css?1}" rel="stylesheet" media="screen"/>
     <link href="/css/bootstrap-switch.css" th:href="@{/css/bootstrap-switch.css}" rel="stylesheet" media="screen"/>    
     <!-- Custom styles for template -->
@@ -88,11 +86,10 @@
                                     <label>Población</label>
                                     <input th:field="*{town}" type="text" class="form-control" placeholder="Población"/>
                                     <label>Dirección</label>
-                                    <input th:field="*{address}" type="text" class="form-control" placeholder="Dirección"/>
+                                    <input th:field="*{address}" type="text" class="form-control sex-separation" placeholder="Dirección"/>
                                     <div th:if="${#fields.hasErrors('sex')}" th:errors='*{sex}' class="alert alert-danger registration-errors" role="alert">Campo es obligatorio</div>
-                                    <label>Sexo</label>
-                                    <input th:field="*{sex}" name="sample-radio" id="radioM" value="M" type="radio"/>
-                                    </section>
+                                    <input id="switch-sex" th:field="*{sex}" data-on="M" data-off="F" data-size="large" data-text-label="Sexo" data-on-label="H" data-off-label="M" data-off-color="danger" value="M" type="radio"/>
+                                </section>
 
                                 <h2>Detalles de la cuenta</h2>
                                 <section>
@@ -159,8 +156,15 @@
             enableKeyNavigation: false,
             enablePagination: false
         });
-
+        
+        /* This is because th (ThymeLeaf) doesn't admit '<i></i>' in inputs
+         Add fa elements dynamically to input radio*/
+        
+        $('input[type="radio"]').data().onLabel='<i class="fa fa-male"></i><br/>Hombre';
+        $('input[type="radio"]').data().offLabel='<i class="fa fa-female"></i><br/>Mujer';
         $('input[type="radio"]').bootstrapSwitch();
+        $('input[type="radio"]').bootstrapSwitch('setOnClass', 'male');
+        $('input[type="radio"]').bootstrapSwitch('setOffClass', 'female');
     });
 </script>
 
