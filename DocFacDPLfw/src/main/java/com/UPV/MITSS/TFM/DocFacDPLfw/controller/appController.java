@@ -9,7 +9,6 @@ import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.DocumentModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.model.DocFac.UserModel;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.DocumentService;
 import com.UPV.MITSS.TFM.DocFacDPLfw.service.UserService;
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -57,7 +56,7 @@ public class appController {
     @Qualifier("documentServiceImpl")
     private DocumentService documentService;
     
-    @GetMapping("/")
+    @GetMapping({"/","/saveDocument"})
     public ModelAndView loginValidate(@CookieValue(value="rememberme", required=false) String cookie){
         ModelAndView mav = new ModelAndView(HOME_VEIW);
         
@@ -109,7 +108,7 @@ public class appController {
         return mav;
     }
     
-    @GetMapping("/profile")
+    @GetMapping({"/profile","/saveProfile"})
     public ModelAndView profile(){
         ModelAndView mav = new ModelAndView(PROFILE_VEIW);
         mav.addObject("user",userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));

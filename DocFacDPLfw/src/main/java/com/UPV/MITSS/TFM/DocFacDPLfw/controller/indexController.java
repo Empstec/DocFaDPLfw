@@ -65,7 +65,7 @@ public class indexController {
         return mav;
     }    
     
-    @GetMapping("/registration")
+    @GetMapping({"/registration","/register"})
     public ModelAndView registration(@CookieValue(value="rememberme",required=false) String cookie){
         ModelAndView mav = new ModelAndView(REG_VEIW);
         mav.addObject("user", new UserModel());
